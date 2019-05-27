@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_27_133118) do
+ActiveRecord::Schema.define(version: 2019_05_27_145819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 2019_05_27_133118) do
     t.index ["user_id"], name: "index_itineraries_on_user_id"
   end
 
+  create_table "results", force: :cascade do |t|
+    t.bigint "itinerary_id"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_results_on_event_id"
+    t.index ["itinerary_id"], name: "index_results_on_itinerary_id"
+  end
+
   create_table "user_categories", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "category_id"
@@ -68,6 +77,8 @@ ActiveRecord::Schema.define(version: 2019_05_27_133118) do
 
   add_foreign_key "events", "categories"
   add_foreign_key "itineraries", "users"
+  add_foreign_key "results", "events"
+  add_foreign_key "results", "itineraries"
   add_foreign_key "user_categories", "categories"
   add_foreign_key "user_categories", "users"
 end
