@@ -31,4 +31,22 @@ itinerary_info = {
 
 Itinerary.create(itinerary_info)
 
+# Category
+category_info = {
+  type: "Music"
+}
+
+category = Category.create(category_info)
+
+# Event
+event_info = {
+  name: "Dancing in the Park",
+  duration: 3,
+  description: "Salsa social dancing with live music",
+  address: "Avenida da Liberdade, Quiosques Liberdade - Posto 4, 1250-145 Lisboa",
+  rating: 4,
+  category_id: category.id,
+}
+
+
 puts "Finished!"
