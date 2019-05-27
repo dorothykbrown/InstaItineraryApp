@@ -1,6 +1,5 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: %i[show edit update destroy]
-
   def index
     @itineraries = Itinerary.all
   end
@@ -8,26 +7,26 @@ class ItinerariesController < ApplicationController
   def show
   end
 
+  def new
+    @itinerary = Itinerary.new
+  end
+
   def create
     @itinerary = Itinerary.new(itinerary_params)
     if @itinerary.save
-      redirect_to user_itineraries_show_path(@itinerary)
+      redirect_to user_itinerary_path(@itinerary)
     else
       render :new
     end
-  end
-
-  def new
-    @itinerary = Itinerary.new
   end
 
   def edit
   end
 
   def update
-    @itinerary.update(itinerary_params)
+    @itinerary = Itinerary.update(itinerary_params)
     if @itinerary.save
-      redirect_to user_itineraries_show_path(@itinerary)
+      redirect_to user_itinerary_path(@itinerary)
     else
       render :edit
     end
@@ -44,6 +43,6 @@ class ItinerariesController < ApplicationController
   end
 
   def itinerary_params
-    params.require(:itinerary).permit(:name, :events, :location, :search_radius, :available_time)
+    params.require(:itinerary).permit(:location, :search_radius, :available_time, :name)
   end
 end
