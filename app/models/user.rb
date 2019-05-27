@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :itineraries
-  has_many :categories, through: :user_categories
+  has_many :categories, through: :user_category
 end
