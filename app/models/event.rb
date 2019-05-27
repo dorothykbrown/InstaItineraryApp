@@ -1,4 +1,4 @@
 class Event < ApplicationRecord
   belongs_to :category
-  has_many :preferences, through: :results
+  # has_many :itineraries, through: :results
 end
