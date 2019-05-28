@@ -5,6 +5,7 @@
     "@rails/webpacker": "https://github.com/rails/webpacker.git",
     "bootstrap": "^4.3.1",
     "core-js": "3",
+    "gmaps": "^0.4.24",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "webpack-cli": "^3.3.2"
