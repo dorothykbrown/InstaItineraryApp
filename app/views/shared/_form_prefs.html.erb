@@ -1,31 +1,48 @@
-<h3>User Itinerary Preferences</h3>
+<div class="container">
+  <h3>New Itinerary Preferences</h3>
 
-<div id="preferences-form">
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01">Max. Distance</label>
+  <div id="preferences-form">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Distance</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option selected>Select a search radius (in Kilometers)</option>
+        <option value="1">2 km</option>
+        <option value="2">4 km</option>
+        <option value="3">6 km</option>
+        <option value="4">8 km</option>
+        <option value="5">10 km</option>
+        <option value="6">20 km</option>
+        <option value="7">50 km</option>
+      </select>
     </div>
-    <select class="custom-select" id="inputGroupSelect01">
-      <option selected>Choose Search Radius (in Kilometers)</option>
-      <option value="1">1 km</option>
-      <option value="2">2 km</option>
-      <option value="3">3 km</option>
-      <option value="4">4 km</option>
-      <option value="5">5 km</option>
-      <option value="6">10 km</option>
-    </select>
-  </div>
 
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect02">Your Availability</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect02">Availability</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect02">
+        <option selected>Select your availability</option>
+        <option value="1">Morning (8am to Noon)</option>
+        <option value="2">Afternoon (Noon to 6pm)</option>
+        <option value="3">Evening (6pm to 10pm)</option>
+        <option value="4">Late (10pm 'til dawn)</option>
+        <option value="5">Anytime</option>
+      </select>
     </div>
-    <select class="custom-select" id="inputGroupSelect02">
-      <option selected>Choose Time Available (in Hours)</option>
-      <option value="1">2 hrs</option>
-      <option value="2">4 hrs</option>
-      <option value="3">6 hrs</option>
-      <option value="4">8 hrs</option>
-    </select>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect03">Transit</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect03">
+        <option selected>Select your mode of transit</option>
+        <option value="1">Walk</option>
+        <option value="2">Transit</option>
+        <option value="3">Auto</option>
+      </select>
+    </div>
   </div>
+  <%= link_to '<< Home', root_path %>
 </div>
