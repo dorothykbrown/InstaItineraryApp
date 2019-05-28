@@ -5,3 +5,111 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts 'Cleaning DB...'
+User.destroy_all
+Itinerary.destroy_all
+
+puts 'Creating Seeds...'
+# User
+users = [
+  {
+    email: 'dorothy@whimaway.com',
+    encrypted_password: '123456',
+    name: 'Dorothy'
+  },
+
+  {
+    email: 'jv@whimaway.com',
+    encrypted_password: '654321',
+    name: 'John'
+  },
+
+  {
+    email: 'simone@whimaway.com',
+    encrypted_password: 'denver',
+    name: 'Simone'
+  },
+
+  {
+    email: 'patricia@whimaway.com',
+    encrypted_password: 'lisboa',
+    name: 'Patricia'
+  }
+]
+
+users.each do |user|
+  User.create(user)
+end
+
+# Itinerary
+itineraries = [
+  {
+    location: 'Lisbon, Portugal',
+    search_radius: '5 km',
+    available_time: 3, # hours
+    name: 'Lisbon Itinerary',
+    user_id: 'user.id'
+  },
+
+  {
+    location: 'Porto, Portugal',
+    search_radius: '2 km',
+    available_time: 3, # hours
+    name: 'Porto Itinerary',
+    user_id: 'user.id'
+  }
+]
+
+itineraries.each do |itin|
+  Itinerary.create(itin)
+end
+
+# Category
+categories = [
+  {
+    name: 'Music'
+  },
+
+  {
+    name: 'Art'
+  },
+
+  {
+    name: 'History'
+  },
+
+  {
+    name: 'Food'
+  }
+]
+
+categories.each do |category|
+  Category.create(category)
+end
+
+# Event
+events = [
+  {
+    name: 'Dancing in the Park',
+    duration: 3,
+    description: 'Salsa social dancing with live music',
+    address: 'Avenida da Liberdade, Quiosques Liberdade - Posto 4, 1250-145 Lisboa',
+    rating: 4,
+    category: Category.find_by(name: "Music")
+  },
+
+  {
+    name: 'Dine in Lisbon',
+    duration: 2,
+    description: 'Experience authentic Portugues cuisine',
+    address: 'Rua das Portas de Santo Antão 23, 1150-264 Lisboa',
+    rating: 5,
+    category: Category.find_by(name: "Food")
+  }
+]
+
+events.each do |event|
+  Event.create(event)
+end
+
+puts 'Finished!'
