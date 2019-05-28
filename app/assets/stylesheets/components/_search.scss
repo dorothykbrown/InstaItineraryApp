@@ -1,0 +1,36 @@
+.search-container {
+  margin: 0 auto;
+  width: 420px;
+}
+
+.search-form-control {
+  color: rgba(0,0,0,0.08);
+}
+
+.search-form-control .form-control {
+  height: 3.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border: 1px solid #E7E7E7;
+}
+
+.search-form-control .form-control:focus {
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn-flat {
+  width: 100%;
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #FF7E67;
+  transition: background 0.3s ease;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-flat:hover {
+  background: #F17761;
+  color: white;
+}
