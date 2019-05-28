@@ -1,10 +1,21 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: %i[show edit update destroy]
+
   def index
-    @itineraries = Itinerary.all
+    if params[:category].present?
+      @itineraries = Itinerary.where(category: params[:category]).where.not(latitude: nil, longitude: nil)
+    else
+      @itineraries = Itinerary.where("location ILIKE ?", "%#{params[:query]}%")
+    end
   end
 
   def show
+    @markers = @itinerary.events do |event|
+    {
+      lat: event.latitude,
+      lng: event.longitude
+    }
+    end
   end
 
   def new
