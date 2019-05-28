@@ -14,31 +14,31 @@ puts 'Creating Seeds...'
 users = [
   {
     email: 'dorothy@whimaway.com',
-    encrypted_password: '123456',
+    password: '123456',
     name: 'Dorothy'
   },
 
   {
     email: 'jv@whimaway.com',
-    encrypted_password: '654321',
+    password: '654321',
     name: 'John'
   },
 
   {
     email: 'simone@whimaway.com',
-    encrypted_password: 'denver',
+    password: 'denver',
     name: 'Simone'
   },
 
   {
     email: 'patricia@whimaway.com',
-    encrypted_password: 'lisboa',
+    password: 'lisboa',
     name: 'Patricia'
   }
 ]
 
 users.each do |user|
-  User.create(user)
+  User.create!(user)
 end
 
 # Itinerary
@@ -48,7 +48,7 @@ itineraries = [
     search_radius: '5 km',
     available_time: 3, # hours
     name: 'Lisbon Itinerary',
-    user_id: 'user.id'
+    user: User.all.sample
   },
 
   {
@@ -56,12 +56,12 @@ itineraries = [
     search_radius: '2 km',
     available_time: 3, # hours
     name: 'Porto Itinerary',
-    user_id: 'user.id'
+    user: User.all.sample
   }
 ]
 
 itineraries.each do |itin|
-  Itinerary.create(itin)
+  Itinerary.create!(itin)
 end
 
 # Category
