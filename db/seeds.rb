@@ -5,48 +5,112 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-puts "Cleaning DB..."
+puts 'Cleaning DB...'
 User.destroy_all
 Itinerary.destroy_all
 
-puts "Creating Seeds..."
+puts 'Creating Seeds...'
 # User
- user_info = {
-  email: "dorothy@whimaway.com",
-  encrypted_password: "123456",
-  name: "Dorothy"
-}
+users = [
+  {
+    email: 'dorothy@whimaway.com',
+    encrypted_password: '123456',
+    name: 'Dorothy'
+  },
 
-user = User.create(user_info)
+  {
+    email: 'jv@whimaway.com',
+    encrypted_password: '654321',
+    name: 'John'
+  },
+
+  {
+    email: 'simone@whimaway.com',
+    encrypted_password: 'denver',
+    name: 'Simone'
+  },
+
+  {
+    email: 'patricia@whimaway.com',
+    encrypted_password: 'lisboa',
+    name: 'Patricia'
+  }
+]
+
+users.each do |user|
+  User.create(user)
+end
 
 # Itinerary
-itinerary_info = {
-  location: "Lisbon, Portugal",
-  search_radius: "5 km",
-  available_time: 3, # hours
-  name: "Lisbon Itinerary",
-  user_id: user.id
-}
+itineraries = [
+  {
+    location: 'Lisbon, Portugal',
+    search_radius: '5 km',
+    available_time: 3, # hours
+    name: 'Lisbon Itinerary',
+    user_id: 'user.id'
+  },
 
-Itinerary.create(itinerary_info)
+  {
+    location: 'Porto, Portugal',
+    search_radius: '2 km',
+    available_time: 3, # hours
+    name: 'Porto Itinerary',
+    user_id: 'user.id'
+  }
+]
+
+itineraries.each do |itin|
+  Itinerary.create(itin)
+end
 
 # Category
-category_info = {
-  name: "Music"
-}
 
-category = Category.create(category_info)
+categories = [
+  {
+    name: 'Music'
+  },
+
+  {
+    name: 'Art'
+  },
+
+  {
+    name: 'History'
+  },
+
+  {
+    name: 'Food'
+  }
+]
+
+categories.each do |category|
+  Category.create(category)
+end
 
 # Event
-event_info = {
-  name: "Dancing in the Park",
-  duration: 3,
-  description: "Salsa social dancing with live music",
-  address: "Avenida da Liberdade, Quiosques Liberdade - Posto 4, 1250-145 Lisboa",
-  rating: 4,
-  category_id: category.id,
-}
+events = [
+  {
+    name: 'Dancing in the Park',
+    duration: 3,
+    description: 'Salsa social dancing with live music',
+    address: 'Avenida da Liberdade, Quiosques Liberdade - Posto 4, 1250-145 Lisboa',
+    rating: 4,
+    category: Category.find_by(name: "Music")
+  },
 
+  {
+    name: 'Dine in Lisbon',
+    duration: 2,
+    description: 'Experience authentic Portugues cuisine',
+    address: 'Rua das Portas de Santo Antão 23, 1150-264 Lisboa',
+    rating: 5,
+    category: Category.find_by(name: "Food")
+  }
+]
 
-puts "Finished!"
+events.each do |event|
+  Event.create(event)
+end
+
+puts 'Finished!'
