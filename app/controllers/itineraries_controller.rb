@@ -1,21 +1,24 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: %i[show edit update destroy]
-  def index
-    @itineraries = policy_scope(Itinerary).where(user: current_user)
 
-   @markers = @itineraries.map do |itinerary|
-    {
-      lat: itinerary.latitude,
-      lng: itinerary.longitude#,
-      # infoWindow: { content: render_to_string(partial: "/itinerarys/map_box", locals: { itinerary: itinerary }) }
-      # Uncomment the above line if you want each of your markers to display a info window when clicked
-      # (you will also need to create the partial "/itinerarys/map_box")
-    }
+  def index
+    if params[:category].present?
+      @itineraries = policy_scope(Itinerary).where(user: current_user).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
+    else
+      @itineraries = Itinerary.where("location ILIKE ?", "%#{params[:query]}%")
+    end
   end
 end
 
   def show
     authorize @itinerary
+
+    @markers = @itinerary.events do |event|
+    {
+      lat: event.latitude,
+      lng: event.longitude
+    }
+    end
   end
 
   def new

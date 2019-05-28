@@ -3,11 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>TODO</title>
+    <title>InstaItinerary</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+    <link rel="icon"
+      type="image/png"
+      href="https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559035478/icon-logo-ii_xztgh9.png" />
   </head>
   <body>
     <%= render 'shared/navbar' %>
@@ -19,5 +22,17 @@
     <%= javascript_pack_tag 'application' %>
     <%= javascript_pack_tag "map" %>
 
+    <div class="footer">
+      <div class="footer-links">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <div class="footer-copyright">
+        © Le Wagon Batch #243
+      </div>
+    </div>
   </body>
 </html>
