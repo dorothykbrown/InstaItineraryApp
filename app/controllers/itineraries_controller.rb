@@ -1,14 +1,15 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: %i[show edit update destroy]
+  # before_action :build_user_cat, only: [:index]
 
   def index
+
     if params[:category].present?
       @itineraries = policy_scope(Itinerary).where(user: current_user).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
     else
       @itineraries = Itinerary.where("location ILIKE ?", "%#{params[:query]}%")
     end
   end
-end
 
   def show
     authorize @itinerary
@@ -23,6 +24,7 @@ end
 
   def new
     @itinerary = Itinerary.new
+    authorize @itinerary
   end
 
   def create
@@ -57,6 +59,12 @@ end
   end
 
   private
+
+  def build_user_cat
+    #get an array from the prevous form
+    #on each create one
+    UserCategory.new
+  end
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])

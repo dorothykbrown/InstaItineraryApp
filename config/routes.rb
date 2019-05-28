@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'user_categories/index'
+  get 'user_categories/show'
+  get 'user_categories/create'
+  get 'user_categories/destroy'
   devise_for :users
   root to: 'pages#home'
   resources :categories, only: [:index]
