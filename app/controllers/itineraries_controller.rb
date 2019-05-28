@@ -1,7 +1,7 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: %i[show edit update destroy]
   def index
-    @itineraries = Itinerary.all
+    @itineraries = policy_scope(Itinerary).where(user: current_user)
 
    @markers = @itineraries.map do |itinerary|
     {
@@ -12,8 +12,10 @@ class ItinerariesController < ApplicationController
       # (you will also need to create the partial "/itinerarys/map_box")
     }
   end
+end
 
   def show
+    authorize @itinerary
   end
 
   def new
@@ -21,7 +23,9 @@ class ItinerariesController < ApplicationController
   end
 
   def create
+
     @itinerary = Itinerary.new(itinerary_params)
+    authorize @itinerary
     if @itinerary.save
       redirect_to user_itinerary_path(@itinerary)
     else
@@ -34,6 +38,7 @@ class ItinerariesController < ApplicationController
 
   def update
     @itinerary = Itinerary.update(itinerary_params)
+    authorize @itinerary
     if @itinerary.save
       redirect_to user_itinerary_path(@itinerary)
     else
@@ -42,6 +47,7 @@ class ItinerariesController < ApplicationController
   end
 
   def destroy
+    authorize @itinerary
     @itinerary.destroy
   end
 
