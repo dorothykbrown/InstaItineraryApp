@@ -1,5 +1,9 @@
+.container > h3 {
+  color: $med-gray;
+}
+
 .input-group-text {
   width: 100px;
-  color: white;
-  background-color: $blue;
+  color: $link;
+  background-color: $light-gray;
 }
