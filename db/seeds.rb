@@ -33,7 +33,7 @@ Itinerary.create(itinerary_info)
 
 # Category
 category_info = {
-  type: "Music"
+  name: "Music"
 }
 
 category = Category.create(category_info)
