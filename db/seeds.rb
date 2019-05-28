@@ -65,6 +65,7 @@ itineraries.each do |itin|
 end
 
 # Category
+
 categories = [
   {
     name: 'Music'
