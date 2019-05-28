@@ -70,15 +70,23 @@ categories = [
   },
 
   {
-    name: 'Art'
+    name: 'Art and Architecture'
   },
 
   {
-    name: 'History'
+    name: 'Nature'
   },
 
   {
-    name: 'Food'
+    name: 'Nightlife'
+  },
+
+  {
+    name: 'Historical Sites'
+  },
+
+  {
+    name: 'Points of Interest'
   }
 ]
 
