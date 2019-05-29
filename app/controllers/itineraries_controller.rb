@@ -3,21 +3,21 @@ class ItinerariesController < ApplicationController
   # before_action :build_user_cat, only: [:index]
 
   def index
-
     if params[:category].present?
       @itineraries = policy_scope(Itinerary).where(user: current_user).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
     else
-      @itineraries = Itinerary.where("location ILIKE ?", "%#{params[:query]}%")
+      @itineraries = policy_scope(Itinerary).where("location ILIKE ?", "%#{params[:query]}%")
     end
   end
 
   def show
     authorize @itinerary
 
-    @markers = @itinerary.events do |event|
+    @markers = @itinerary.events.map do |event|
     {
       lat: event.latitude,
-      lng: event.longitude
+      lng: event.longitude,
+      infoWindow: render_to_string(partial: "info_window", locals: { property: event })
     }
     end
   end
@@ -25,10 +25,18 @@ class ItinerariesController < ApplicationController
   def new
     @itinerary = Itinerary.new
     authorize @itinerary
+
+    lewagon = Geocoder.search("Rua do Conde de Redondo 91B, Lisboa").first.data
+
+     @markers = [
+       {
+         lat: lewagon['lat'],
+         lng: lewagon['lon']
+       }
+     ]
   end
 
   def create
-
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
     authorize @itinerary
