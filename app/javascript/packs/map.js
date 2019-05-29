@@ -5,13 +5,13 @@ import GMaps from 'gmaps/gmaps.js';
 
 autocomplete();
 
-const styles = [ /* the style copied from https://snazzymaps.com/ */ ];
+// const styles = [ /* the style copied from https://snazzymaps.com/ */ ];
 
-map.addStyle({
-  styles: styles,
-  mapTypeId: 'map_style'
-});
-map.setStyle('map_style');
+// map.addStyle({
+//   styles: styles,
+//   mapTypeId: 'map_style'
+// });
+// map.setStyle('map_style');
 
 const mapElement = document.getElementById('map');
 if (mapElement) { // don't try to build a map if there's no div#map to inject in

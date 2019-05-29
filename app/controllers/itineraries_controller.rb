@@ -8,12 +8,11 @@ class ItinerariesController < ApplicationController
       @itineraries = Itinerary.where("location ILIKE ?", "%#{params[:query]}%")
     end
   end
-end
 
   def show
     authorize @itinerary
 
-    @markers = @itinerary.events do |event|
+    @markers = @itinerary.events.map do |event|
     {
       lat: event.latitude,
       lng: event.longitude
@@ -26,7 +25,6 @@ end
   end
 
   def create
-
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
     authorize @itinerary
@@ -36,6 +34,7 @@ end
     else
       render :new
     end
+    results = GooglePlacesService.search(@itinerary.id)
   end
 
   def edit
@@ -57,6 +56,13 @@ end
   end
 
   private
+
+  def build_results
+    events = []
+    pool = Event.where
+    if Event.all
+
+  end
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])

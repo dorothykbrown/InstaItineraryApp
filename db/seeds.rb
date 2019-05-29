@@ -43,18 +43,18 @@ end
 itineraries = [
   {
     location: 'Lisbon, Portugal',
-    search_radius: '5 km',
+    search_radius: 5, # km
     available_time: 3, # hours
     name: 'Lisbon Itinerary',
-    user: User.all.sample
+    user: User.first
   },
 
   {
     location: 'Porto, Portugal',
-    search_radius: '2 km',
+    search_radius: 2, # km
     available_time: 3, # hours
     name: 'Porto Itinerary',
-    user: User.all.sample
+    user: User.first
   }
 ]
 
@@ -111,7 +111,7 @@ events = [
     description: 'Experience authentic Portugues cuisine',
     address: 'Rua das Portas de Santo Antão 23, 1150-264 Lisboa',
     rating: 5,
-    category: Category.find_by(name: "Food")
+    category: Category.find_by(name: "Art and Architecture")
   }
 ]
 
@@ -119,4 +119,41 @@ events.each do |event|
   Event.create(event)
 end
 
+# Results
+results = [
+{
+  itinerary: Itinerary.first,
+  event: Event.first
+},
+
+{
+  itinerary: Itinerary.first,
+  event: Event.last
+}]
+
+results.each do |result|
+  Result.create(result)
+end
+
+# User Categories
+user_categories = [
+{
+  user: User.first,
+  category: Category.all[0]
+},
+
+{
+  user: User.first,
+  category: Category.all[1]
+},
+
+{
+  user: User.first,
+  category: Category.all[2]
+
+}]
+
+# user_categories.each do |user_cat|
+#   UserCateogries.create(user_cat)
+# end
 puts 'Finished!'
