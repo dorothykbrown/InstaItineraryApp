@@ -1,8 +1,9 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
-
-   @markers = @events.map do |event|
+    @itinerary = Itinerary.find(params[:id])
+    @events = @itinerary.events
+    @events = Event.where.not(latitude: nil, longitude: nil)
+    @markers = @events.map do |event|
     {
       lat: event.latitude,
       lng: event.longitude

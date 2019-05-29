@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Event.destroy_all
+Category.destroy_all
+Itinerary.destroy_all
+User.destroy_all
 
 
 puts 'Creating Seeds...'
@@ -100,7 +104,7 @@ events = [
     name: 'Dancing in the Park',
     duration: 3,
     description: 'Salsa social dancing with live music',
-    address: 'Avenida da Liberdade, Quiosques Liberdade - Posto 4, 1250-145 Lisboa',
+    address: 'Avenida da Liberdade, Lisboa',
     rating: 4,
     category: Category.find_by(name: "Music")
   },
@@ -109,14 +113,29 @@ events = [
     name: 'Dine in Lisbon',
     duration: 2,
     description: 'Experience authentic Portugues cuisine',
-    address: 'Rua das Portas de Santo Antão 23, 1150-264 Lisboa',
+    address: 'Rua das Portas de Santo Antão 23, Lisboa',
     rating: 5,
-    category: Category.find_by(name: "Food")
+    category: Category.find_by(name: "Points of Interest")
   }
 ]
 
 events.each do |event|
   Event.create(event)
+end
+# Results
+results = [
+{
+ itinerary: Itinerary.first,
+ event: Event.first
+},
+
+{
+ itinerary: Itinerary.first,
+ event: Event.last
+}]
+
+results.each do |result|
+ Result.create(result)
 end
 
 puts 'Finished!'

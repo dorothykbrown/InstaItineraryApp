@@ -3,7 +3,6 @@ class ItinerariesController < ApplicationController
   # before_action :build_user_cat, only: [:index]
 
   def index
-
     if params[:category].present?
       @itineraries = policy_scope(Itinerary).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
     else
@@ -14,10 +13,11 @@ class ItinerariesController < ApplicationController
   def show
     authorize @itinerary
 
-    @markers = @itinerary.events do |event|
+    @markers = @itinerary.events.map do |event|
     {
       lat: event.latitude,
-      lng: event.longitude
+      lng: event.longitude,
+      infoWindow: render_to_string(partial: "info_window", locals: { property: event })
     }
     end
   end
@@ -25,6 +25,20 @@ class ItinerariesController < ApplicationController
   def new
     @itinerary = Itinerary.new
     authorize @itinerary
+    if params[:query].present?
+    @search = Geocoder.search(params[:query])
+      if @search == []
+        flash[:notice] = "No Search Results for that location"
+        redirect_to root_path
+      else
+      @first_result = @search.first
+      render_markers
+      end
+    else
+    @search = Geocoder.search("lisbon")
+    @first_result = @search.first
+    render_markers
+    end
   end
 
   def create
@@ -59,6 +73,16 @@ class ItinerariesController < ApplicationController
   end
 
   private
+
+  def render_markers
+         @markers = [
+       {
+         lat: @first_result.latitude,
+         lng: @first_result.longitude,
+         # infoWindow: render_to_string(partial: "info_window", locals: { property: location })
+       }
+     ]
+  end
 
   def build_user_cat
     #get an array from the prevous form
