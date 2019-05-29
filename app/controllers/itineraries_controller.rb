@@ -4,7 +4,7 @@ class ItinerariesController < ApplicationController
 
   def index
     if params[:category].present?
-      @itineraries = policy_scope(Itinerary).where(user: current_user).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
+      @itineraries = policy_scope(Itinerary).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
     else
       @itineraries = policy_scope(Itinerary).where("location ILIKE ?", "%#{params[:query]}%")
     end
@@ -47,7 +47,8 @@ class ItinerariesController < ApplicationController
     authorize @itinerary
 
     if @itinerary.save
-      redirect_to user_itinerary_path(@itinerary)
+      flash[:success] = "Your itinerary parameters have been saved!"
+      redirect_to user_itinerary_path(current_user, @itinerary)
     else
       render :new
     end
@@ -94,6 +95,6 @@ class ItinerariesController < ApplicationController
   end
 
   def itinerary_params
-    params.require(:itinerary).permit(:location, :search_radius, :available_time, :name)
+    params.require(:itinerary).permit(:location, :search_radius, :available_time, :name, :transit_mode)
   end
 end

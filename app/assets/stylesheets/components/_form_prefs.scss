@@ -1,4 +1,5 @@
 .container > h3 {
+  width: 100%;
   color: $med-gray;
 }
 
@@ -25,4 +26,12 @@
 .btn-pref:hover {
   background: #F17761;
   color: white;
+}
+
+.center {
+  width: 150px;
+  height: 38px;
+  color: $orange;
+  margin: 4px auto 8px auto;
+  background-color: $light-gray;
 }
