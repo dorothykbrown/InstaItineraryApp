@@ -15,20 +15,21 @@ class GooglePlacesService
         fields: "formatted_address,place_id",
         locationbias: "circle:#{itinerary.search_radius}@#{itinerary.latitude},#{itinerary.longitude}"
       }
+      # binding.pry
       search_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/#{output}?input=#{params[:input]}&inputtype=#{params[:inputtype]}&fields=#{params[:fields]}&locationbias=#{params[:locationbias]}&key=#{params[:key]}"
-      binding.pry
       places_serialized = open(search_url).read
+      # binding.pry
       places = JSON.parse(places_serialized)
-      binding.pry
+      # binding.pry
       place_address = places["candidates"].first["formatted_address"]
-      binding.pry
       place_id = places["candidates"].first["place_id"]
-      self.place_details(place_address, place_id, itin_id)
+      # binding.pry
+      self.place_details(place_address, place_id, itin_id, category.id)
+      # binding.pry
     end
-    places
   end
 
-  def self.place_details(place_address, place_id, itin_id)
+  def self.place_details(place_address, place_id, itin_id, cat_id)
     itinerary = Itinerary.find(itin_id)
     output = "json"
     params = {
@@ -36,26 +37,28 @@ class GooglePlacesService
       place_id: place_id,
       fields: "opening_hours,icon,formatted_address,geometry/location,photos,price_level,rating,types,permanently_closed,reviews,website,url,id,name,place_id,plus_code,scope,user_ratings_total,vicinity"
     }
-    binding.pry
     details_url = "https://maps.googleapis.com/maps/api/place/details/#{output}?place_id=#{params[:place_id]}&fields=#{params[:fields]}&key=#{params[:key]}"
-    binding.pry
     event_serialized = open(URI::encode(details_url)).read
-    binding.pry
     event = JSON.parse(event_serialized)
-    binding.pry
-    self.build_event(event, itin_id)
+    self.build_event(event, itin_id, cat_id)
   end
 
-  def self.build_event(event, itin_id)
+  def self.build_event(event, itin_id, cat_id)
     itinerary = Itinerary.find(itin_id)
-    Event.create(
+    created_event = Event.create(
       name: event["result"]["name"],
       # duration: 2,
       # description: "", ,
-      address: event[:formatted_address],
-      rating: event[:rating],
-      category_id: category.id
+      address: event["result"]["formatted_address"],
+      # photos: event["result"]["photos"],
+      rating: event["result"]["rating"],
+      # price_level: event["result"]["price_level"],
+      # reviews: event["result"]["reviews"],
+      # website: event["result"]["website"],
+      # open_now: event["result"]["opening_hours"]["open_now"],
+      # week_day_text: event["result"]["opening_hours"]["week_day_text"],
+      category_id: cat_id
     )
-    Result.create(event: event, itinerary: itinerary)
+    Result.create(event: created_event, itinerary: itinerary)
   end
 end
