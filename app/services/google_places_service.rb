@@ -6,11 +6,12 @@ class GooglePlacesService
     # return a list of places from google
     itinerary = Itinerary.find(itin_id)
     user = itinerary.user
+    # binding.pry
     user.categories.each do |category|
       # output = "json"
       params = {
         key: ENV['GOOGLE_API_SERVER_KEY'],
-        input: "art", # name, address or phone number, category.name
+        input: category.name, # name, address or phone number,
         # inputtype: "textquery", # can be either textquery or phone number
         fields: "formatted_address,place_id",
         # location: "circle:#{itinerary.search_radius}@#{itinerary.latitude},#{itinerary.longitude}"
@@ -61,10 +62,9 @@ class GooglePlacesService
       'Historical Sites': 1,
       'Points of Interest': 1
     }
-    # binding.pry
     created_event = Event.create(
       name: event["result"]["name"],
-      duration: event_duration[category.name],
+      duration: event_duration[category.name.to_sym],
       # description: "", ,
       address: event["result"]["formatted_address"],
       # photos: event["result"]["photos"],
@@ -72,7 +72,7 @@ class GooglePlacesService
       price: event["result"]["price_level"], #price level
       # reviews: event["result"]["reviews"],
       website: event["result"]["website"],
-      open_now: event["result"]["opening_hours"]["open_now"],
+      open_now: event.dig("result", "opening_hours", "open_now"),
       # week_day_text: event["result"]["opening_hours"]["week_day_text"],
       category_id: cat_id
     )
@@ -83,9 +83,9 @@ class GooglePlacesService
     itinerary = Itinerary.find(itin_id)
     itin_time = 0
     itin_event_results = []
-    # binding.pry
     if itin_time < avail_time
       itinerary.events.each do |event|
+    # binding.pry
         remain_time = avail_time - itin_time
         if event.duration.present? && event.duration < remain_time
           itin_event_results << event

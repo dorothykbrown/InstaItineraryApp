@@ -12,16 +12,15 @@ class ItinerariesController < ApplicationController
 
   def show
     authorize @itinerary
-    @itin_results = GooglePlacesService.search(@itinerary.id)
-    @markers = @itin_results.events.map do |event|
+
+    @markers = @itin_results.map do |event|
     {
       lat: event.latitude,
       lng: event.longitude,
       infoWindow: render_to_string(partial: "info_window", locals: { property: event })
     }
+    end
   end
-end
-
 
   def new
     @itinerary = Itinerary.new
@@ -31,6 +30,7 @@ end
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
     authorize @itinerary
+    @itin_results = GooglePlacesService.search(@itinerary.id)
   end
 
 def new
@@ -84,7 +84,6 @@ def destroy
 end
 
 private
-
 
 def render_markers
   @markers = [

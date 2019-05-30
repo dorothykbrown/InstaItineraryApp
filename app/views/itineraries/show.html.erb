@@ -7,11 +7,11 @@
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   ></div>
   <div class="cards-show p-3">
-    <% Event.all.each do |event| %>
+    <% @itin_results.each do |event| %>
       <div class="card-event">
         <h3><strong><%= link_to event.name, event_path(event) %></strong></h3>
         <p><%= '⭐️' * event.rating.to_i %></p>
-        <p><%= event.description %></p>
+        <p><%= event.website %></p>
       </div>
     <% end %>
   </div>

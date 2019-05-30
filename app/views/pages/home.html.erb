@@ -9,7 +9,7 @@
         </div>
       </div>
       <% end %>
-      <%= form_for '', url: '', method: :post do |f| %>
+      <%= form_for :search, url: new_user_itinerary_path(current_user), method: :get do |f| %>
         <div class="cards">
           <% Category.all.each do |category| %>
             <input type="checkbox" class="d-none" value="<%= category.id %>" name="post[category_ids][]" id="post_category_ids_<%= category.id %>">
