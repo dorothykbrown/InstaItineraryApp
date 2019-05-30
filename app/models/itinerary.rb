@@ -10,4 +10,5 @@ class Itinerary < ApplicationRecord
   validates :location, presence: true
   validates :search_radius, presence: true
   validates :available_time, presence: true
+  # validates :transit_mode, presence: true
 end

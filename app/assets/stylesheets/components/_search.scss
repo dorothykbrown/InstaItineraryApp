@@ -1,16 +1,24 @@
 .search-container {
   margin: 0 auto;
-  width: 420px;
+  width: 410px;
 }
 
 .search-form-control {
   color: rgba(0,0,0,0.08);
+  position: relative;
 }
 
 .search-form-control .form-control {
   height: 3.5rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   border: 1px solid #E7E7E7;
+}
+
+.search-form-control .i {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  font-size: 25px;
 }
 
 .search-form-control .form-control:focus {
@@ -26,7 +34,7 @@
   background: #FF7E67;
   transition: background 0.3s ease;
   font-size: 22px;
-  margin-top: 15px;
+  margin-top: 8px;
   margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }

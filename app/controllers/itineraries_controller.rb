@@ -1,11 +1,12 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: %i[show edit update destroy]
+  # before_action :build_user_cat, only: [:index]
 
   def index
     if params[:category].present?
-      @itineraries = policy_scope(Itinerary).where(user: current_user).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
+      @itineraries = policy_scope(Itinerary).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
     else
-      @itineraries = Itinerary.where("location ILIKE ?", "%#{params[:query]}%")
+      @itineraries = policy_scope(Itinerary).where("location ILIKE ?", "%#{params[:query]}%")
     end
   end
 
@@ -15,10 +16,11 @@ class ItinerariesController < ApplicationController
     @markers = @itin_results.events.map do |event|
     {
       lat: event.latitude,
-      lng: event.longitude
+      lng: event.longitude,
+      infoWindow: render_to_string(partial: "info_window", locals: { property: event })
     }
-    end
   end
+end
 
   def new
     @itinerary = Itinerary.new
@@ -28,33 +30,76 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
     authorize @itinerary
+  end
 
-    if @itinerary.save
-      redirect_to user_itinerary_path(@itinerary)
+def new
+  @itinerary = Itinerary.new
+  authorize @itinerary
+  if params[:query].present?
+    @search = Geocoder.search(params[:query])
+    if @search == []
+      flash[:notice] = "No Search Results for that location"
+      redirect_to root_path
     else
-      render :new
+      @first_result = @search.first
+      render_markers
     end
+  else
+    @search = Geocoder.search("lisbon")
+    @first_result = @search.first
+    render_markers
   end
+end
 
-  def edit
+def create
+  @itinerary = Itinerary.new(itinerary_params)
+  @itinerary.user = current_user
+  authorize @itinerary
+
+  if @itinerary.save
+    flash[:success] = "Your itinerary parameters have been saved!"
+    redirect_to user_itinerary_path(current_user, @itinerary)
+  else
+    render :new
   end
+end
 
-  def update
-    @itinerary = Itinerary.update(itinerary_params)
-    authorize @itinerary
-    if @itinerary.save
-      redirect_to user_itinerary_path(@itinerary)
-    else
-      render :edit
-    end
+def edit
+end
+
+def update
+  @itinerary = Itinerary.update(itinerary_params)
+  authorize @itinerary
+  if @itinerary.save
+    redirect_to user_itinerary_path(@itinerary)
+  else
+    render :edit
   end
+end
 
-  def destroy
-    authorize @itinerary
-    @itinerary.destroy
+def destroy
+  authorize @itinerary
+  @itinerary.destroy
+end
+
+private
+
+
+def render_markers
+  @markers = [
+    {
+      lat: @first_result.latitude,
+      lng: @first_result.longitude,
+      infoWindow: render_to_string(partial: "new_window", locals: { search: @search.first.display_name })
+    }
+  ]
+end
+
+def build_user_cat
+    #get an array from the prevous form
+    #on each create one
+    UserCategory.new
   end
-
-  private
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])

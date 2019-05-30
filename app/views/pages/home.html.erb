@@ -1,35 +1,24 @@
 <div class="container p-3">
   <div class="search-container">
-    <%= simple_form_for :search, url: root_path, method: :get do |f| %>
+    <%= simple_form_for :search, url: new_user_itinerary_path(current_user), method: :get do |f| %>
       <div class="search-form-control form-group">
-        <%#= render "shared/search" %>
-       <!--  <input class="form-control string required" type="text" name="search[query]"
-      id="search_query"/> -->
+        <input class="form-control string required" type="text" name="query"
+      id="search_query"/>
+        <div class="i">
+          <i class="fas fa-search"></i>
+        </div>
       </div>
-    <% end %>
-    <div class="cards">
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559039491/art_card_q2nd9s.jpg)">
-        <p>Art & <br >
-          Architecture</p>
-      </div>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559039629/historical_card_px0fe5.jpg)">
-        <p>Historical Sites</p>
-      </div>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559039827/music_card_ilgqoa.jpg)">
-        <p>Music</p>
-      </div>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559039827/nature_card_rdek8n.jpg)">
-        <p>Nature</p>
-      </div>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559039827/nightlife_card_c7k2ub.jpg)">
-        <p>Nightlife</p>
-      </div>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559039959/poi_card_mmbg4x.png)">
-        <p>Points of Interest</p>
-      </div>
+      <% end %>
+      <%= form_for '', url: '', method: :post do |f| %>
+        <div class="cards">
+          <% Category.all.each do |category| %>
+            <input type="checkbox" class="d-none" value="<%= category.id %>" name="post[category_ids][]" id="post_category_ids_<%= category.id %>">
+            <label class="card-category" style="background-image: url(<%= category.image_url %>);" for="post_category_ids_<%= category.id %>">
+              <p><%= category.name %></p>
+            </label>
+          <% end %>
+        </div>
+        <%= f.submit "Submit Categories", class: "btn btn-flat"  %>
+      <% end %>
     </div>
-    <button name="button" type="submit" class="btn btn-flat">
-      Submit Categories
-    </button>
   </div>
-</div>

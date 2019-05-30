@@ -1,9 +1,37 @@
 .container > h3 {
+  width: 100%;
   color: $med-gray;
 }
 
 .input-group-text {
   width: 100px;
   color: $link;
+  background-color: $light-gray;
+}
+
+.btn-pref {
+  width: 100px;
+  height: 40px;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #FF7E67;
+  transition: background 0.3s ease;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn-pref:hover {
+  background: #F17761;
+  color: white;
+}
+
+.center {
+  width: 150px;
+  height: 38px;
+  color: $orange;
+  margin: 4px auto 8px auto;
   background-color: $light-gray;
 }
