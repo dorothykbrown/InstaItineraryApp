@@ -50,7 +50,8 @@ itineraries = [
     search_radius: '5 km',
     available_time: 3, # hours
     name: 'Lisbon Itinerary',
-    user: User.all.sample
+    user: User.all.sample,
+    transit_mode: 'walk'
   },
 
   {
@@ -58,7 +59,8 @@ itineraries = [
     search_radius: '2 km',
     available_time: 3, # hours
     name: 'Porto Itinerary',
-    user: User.all.sample
+    user: User.all.sample,
+    transit_mode: 'walk'
   }
 ]
 
@@ -130,18 +132,18 @@ events.each do |event|
 end
 # Results
 results = [
-{
- itinerary: Itinerary.first,
- event: Event.first
-},
+  {
+    itinerary: Itinerary.first,
+    event: Event.first
+  },
 
-{
- itinerary: Itinerary.first,
- event: Event.last
+  {
+    itinerary: Itinerary.first,
+    event: Event.last
 }]
 
 results.each do |result|
- Result.create(result)
+  Result.create(result)
 end
 
 puts 'Finished!'
