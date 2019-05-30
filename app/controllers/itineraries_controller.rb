@@ -22,6 +22,7 @@ class ItinerariesController < ApplicationController
   end
 end
 
+
   def new
     @itinerary = Itinerary.new
   end
