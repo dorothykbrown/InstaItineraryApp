@@ -7,7 +7,7 @@
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   ></div>
   <div class="cards-show p-3">
-    <% Event.all.each do |event| %>
+    <% @itin_results.each do |event| %>
       <div class="card-event">
         <div class="card-event-image">
           <%= image_tag("https://images.unsplash.com/photo-1520483691742-bada60a1edd6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80") %>
