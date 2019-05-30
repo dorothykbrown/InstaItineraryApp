@@ -1,3 +1,18 @@
 <h1>Itineraries#show</h1>
 
+<div class="container">
+  <div class="row"><%= :location %></div>
+  <div class="row"><%= :name %></div>
+  <div class="row"><%= :search_radius %></div>
+  <div class="row"><%= :available_time %></div>
+  <div class="row"><%= :transit_mode %></div>
 
+<div
+  id="map"
+  style="width: 100%;
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>"
+  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+></div>
+
+</div>

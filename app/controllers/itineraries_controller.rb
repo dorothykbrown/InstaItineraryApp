@@ -3,21 +3,21 @@ class ItinerariesController < ApplicationController
   # before_action :build_user_cat, only: [:index]
 
   def index
-
     if params[:category].present?
-      @itineraries = policy_scope(Itinerary).where(user: current_user).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
+      @itineraries = policy_scope(Itinerary).where(category: params[:category]).where.not(latitude: nil, longitude: nil)
     else
-      @itineraries = Itinerary.where("location ILIKE ?", "%#{params[:query]}%")
+      @itineraries = policy_scope(Itinerary).where("location ILIKE ?", "%#{params[:query]}%")
     end
   end
 
   def show
     authorize @itinerary
 
-    @markers = @itinerary.events do |event|
+    @markers = @itinerary.events.map do |event|
     {
       lat: event.latitude,
-      lng: event.longitude
+      lng: event.longitude,
+      infoWindow: render_to_string(partial: "info_window", locals: { property: event })
     }
     end
   end
@@ -25,16 +25,30 @@ class ItinerariesController < ApplicationController
   def new
     @itinerary = Itinerary.new
     authorize @itinerary
+    if params[:query].present?
+    @search = Geocoder.search(params[:query])
+      if @search == []
+        flash[:notice] = "No Search Results for that location"
+        redirect_to root_path
+      else
+      @first_result = @search.first
+      render_markers
+      end
+    else
+    @search = Geocoder.search("lisbon")
+    @first_result = @search.first
+    render_markers
+    end
   end
 
   def create
-
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
     authorize @itinerary
 
     if @itinerary.save
-      redirect_to user_itinerary_path(@itinerary)
+      flash[:success] = "Your itinerary parameters have been saved!"
+      redirect_to user_itinerary_path(current_user, @itinerary)
     else
       render :new
     end
@@ -60,6 +74,16 @@ class ItinerariesController < ApplicationController
 
   private
 
+  def render_markers
+         @markers = [
+       {
+         lat: @first_result.latitude,
+         lng: @first_result.longitude,
+         # infoWindow: render_to_string(partial: "info_window", locals: { property: location })
+       }
+     ]
+  end
+
   def build_user_cat
     #get an array from the prevous form
     #on each create one
@@ -71,6 +95,6 @@ class ItinerariesController < ApplicationController
   end
 
   def itinerary_params
-    params.require(:itinerary).permit(:location, :search_radius, :available_time, :name)
+    params.require(:itinerary).permit(:location, :search_radius, :available_time, :name, :transit_mode)
   end
 end
