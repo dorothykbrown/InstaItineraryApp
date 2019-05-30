@@ -1,27 +1,28 @@
+
 .event-show {
   margin: 0 auto;
   padding: 10px;
 }
 
 .card-event {
-  overflow: hidden;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  opacity: 0.8;
   padding: 10px;
   margin-top: 20px;
-  height: 200px;
 }
 
-.card-event:hover {
-  opacity: 1;
-}
-
-.card-event > a > img {
+.card-event-image img {
   height: 200px;
-  width: 100%;
   object-fit: cover;
+  width: auto;
+  margin-bottom: 10px;
 }
+
+// .card-event > a > img {
+//   height: 200px;
+//   width: 100%;
+//   object-fit: cover;
+// }
 
 .card-event h2 {
   font-size: 20px;
@@ -40,20 +41,9 @@
   margin: 0;
 }
 
-.card-event .card-event-infos {
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative;
+.card-event-infos {
 }
 
-.card-event-infos .card-event-user {
-  position: absolute;
-  right: 16px;
-  top: -20px;
-  width: 40px;
-}
 .event {
   background-color: white;
   padding: 10px;
