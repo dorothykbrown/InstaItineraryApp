@@ -50,7 +50,8 @@ itineraries = [
     search_radius: '5 km',
     available_time: 3, # hours
     name: 'Lisbon Itinerary',
-    user: User.all.sample
+    user: User.all.sample,
+    transit_mode: 'walk'
   },
 
   {
@@ -58,7 +59,8 @@ itineraries = [
     search_radius: '2 km',
     available_time: 3, # hours
     name: 'Porto Itinerary',
-    user: User.all.sample
+    user: User.all.sample,
+    transit_mode: 'walk'
   }
 ]
 
@@ -70,27 +72,33 @@ end
 
 categories = [
   {
-    name: 'Music'
+    name: 'Music',
+    image_url: 'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60',
   },
 
   {
-    name: 'Art and Architecture'
+    name: 'Art and Architecture',
+    image_url: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60',
   },
 
   {
-    name: 'Nature'
+    name: 'Nature',
+    image_url: 'https://images.unsplash.com/photo-1453785675141-67637e2d4b5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   },
 
   {
-    name: 'Nightlife'
+    name: 'Nightlife',
+    image_url: 'https://images.unsplash.com/photo-1519214605650-76a613ee3245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   },
 
   {
-    name: 'Historical Sites'
+    name: 'Historical Sites',
+    image_url: 'https://images.unsplash.com/photo-1467383670897-225b16e3cc9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   },
 
   {
-    name: 'Points of Interest'
+    name: 'Points of Interest',
+    image_url: 'https://images.unsplash.com/photo-1542567455-cd733f23fbb1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   }
 ]
 
@@ -124,18 +132,18 @@ events.each do |event|
 end
 # Results
 results = [
-{
- itinerary: Itinerary.first,
- event: Event.first
-},
+  {
+    itinerary: Itinerary.first,
+    event: Event.first
+  },
 
-{
- itinerary: Itinerary.first,
- event: Event.last
+  {
+    itinerary: Itinerary.first,
+    event: Event.last
 }]
 
 results.each do |result|
- Result.create(result)
+  Result.create(result)
 end
 
 puts 'Finished!'
