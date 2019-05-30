@@ -11,8 +11,8 @@ class ItinerariesController < ApplicationController
 
   def show
     authorize @itinerary
-
-    @markers = @itinerary.events.map do |event|
+    @itin_results = GooglePlacesService.search(@itinerary.id)
+    @markers = @itin_results.events.map do |event|
     {
       lat: event.latitude,
       lng: event.longitude
@@ -34,7 +34,6 @@ class ItinerariesController < ApplicationController
     else
       render :new
     end
-    results = GooglePlacesService.search(@itinerary.id)
   end
 
   def edit
@@ -56,13 +55,6 @@ class ItinerariesController < ApplicationController
   end
 
   private
-
-  def build_results
-    events = []
-    pool = Event.where
-    if Event.all
-
-  end
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])

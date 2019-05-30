@@ -69,4 +69,5 @@ ittn_attr = {
 itinerary = Itinerary.new(ittn_attr)
 itinerary.save
 
+puts "CALLING SERVICE"
 GooglePlacesService.search(itinerary.id)

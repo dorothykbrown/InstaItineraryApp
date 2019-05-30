@@ -8,5 +8,7 @@
   data-markers="<%= @markers.to_json %>"
 ></div>
 
-<p>Find me in app/views/itineraries/index.html.erb</p>
+<%= @itin_results.each do |event| %>
+  <%= event.name %>
+<% end %>
 
