@@ -9,7 +9,7 @@
   <div class="cards-show p-3">
     <% Event.all.each do |event| %>
       <div class="card-event">
-        <h3><strong><%= link_to event.name, event_path %></strong></h3>
+        <h3><strong><%= link_to event.name, event_path(event) %></strong></h3>
         <p><%= '⭐️' * event.rating.to_i %></p>
         <p><%= event.description %></p>
       </div>
