@@ -1,18 +1,18 @@
-<h1>Itineraries#show</h1>
-
 <div class="container">
-  <div class="row"><%= :location %></div>
-  <div class="row"><%= :name %></div>
-  <div class="row"><%= :search_radius %></div>
-  <div class="row"><%= :available_time %></div>
-  <div class="row"><%= :transit_mode %></div>
-
-<div
+  <div
   id="map"
   style="width: 100%;
-  height: 600px;"
+  height: 300px;"
   data-markers="<%= @markers.to_json %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
-></div>
-
+  ></div>
+  <div class="cards-show p-3">
+    <% Event.all.each do |event| %>
+      <div class="card-event">
+        <h3><strong><%= link_to event.name, event_path(event) %></strong></h3>
+        <p><%= '⭐️' * event.rating.to_i %></p>
+        <p><%= event.description %></p>
+      </div>
+    <% end %>
+  </div>
 </div>

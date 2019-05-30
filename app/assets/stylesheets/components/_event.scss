@@ -1,0 +1,72 @@
+.event-show {
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.card-event {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  opacity: 0.8;
+  padding: 10px;
+  margin-top: 20px;
+  height: 200px;
+}
+
+.card-event:hover {
+  opacity: 1;
+}
+
+.card-event > a > img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-event h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-event h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.card-event p {
+  font-size: 16px;
+  opacity: .7;
+  margin: 0;
+}
+
+.card-event .card-event-infos {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
+
+.card-event-infos .card-event-user {
+  position: absolute;
+  right: 16px;
+  top: -20px;
+  width: 40px;
+}
+.event {
+  background-color: white;
+  padding: 10px;
+  border: 1px rgba(0,0,0,0.2) solid;
+}
+
+.event-image {
+  text-align: right;
+}
+
+.event-image > img {
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 500px;
+  height: 100%;
+  border-radius: 5px;
+}
