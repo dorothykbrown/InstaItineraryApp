@@ -4,14 +4,14 @@
 
   <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect01">
-      <%= f.text_field :location, value: 'Lisbon', class: 'input-group-text' %>
+      <%= f.label :location, value: 'Location', class: 'input-group-text' %>
     </div>
-      <%= f.select(:location, [ 'Lisbon' ], {}, { class: 'custom-select'}) %>
+      <%= f.select(:location, [@search.first.display_name,@search.second.display_name] , {}, { class: 'custom-select'}) %>
   </div>
 
   <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect01">
-      <%= f.text_field :name, value: 'Name', class: 'input-group-text' %>
+      <%= f.label :name, value: 'Name', class: 'input-group-text' %>
     </div>
     <%= f.text_area :name %>
   </div>
