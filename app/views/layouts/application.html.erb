@@ -11,6 +11,7 @@
     <link rel="icon"
       type="image/png"
       href="https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559035478/icon-logo-ii_xztgh9.png" />
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
   </head>
   <body>
     <%= render 'shared/navbar' %>

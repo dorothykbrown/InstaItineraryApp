@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 2019_05_30_120115) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
+    t.integer "price"
+    t.string "website"
+    t.boolean "open_now"
     t.index ["category_id"], name: "index_events_on_category_id"
   end
 

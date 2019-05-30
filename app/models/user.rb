@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :itineraries
-  has_many :categories, through: :user_category
+  has_many :user_categories
+  has_many :categories, through: :user_categories
 
   validates :name, presence: true
   validates :email, presence: true
