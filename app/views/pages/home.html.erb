@@ -8,17 +8,17 @@
           <i class="fas fa-search"></i>
         </div>
       </div>
-      <% end %>
-      <%= form_for :search, url: new_user_itinerary_path(current_user), method: :get do |f| %>
-        <div class="cards">
-          <% Category.all.each do |category| %>
-            <input type="checkbox" class="d-none" value="<%= category.id %>" name="post[category_ids][]" id="post_category_ids_<%= category.id %>">
-            <label class="card-category" style="background-image: url(<%= category.image_url %>);" for="post_category_ids_<%= category.id %>">
-              <p><%= category.name %></p>
-            </label>
-          <% end %>
-        </div>
-        <%= f.submit "Submit Categories", class: "btn btn-flat"  %>
-      <% end %>
-    </div>
+    <% end %>
+    <%= form_for :search, url: new_user_itinerary_path(current_user), method: :get do |f| %>
+      <div class="cards">
+        <% Category.all.each do |category| %>
+          <input type="checkbox" class="d-none" value="<%= category.name %>" name="post[category_ids][]" id="post_category_ids_<%= category.name %>">
+          <label class="card-category" style="background-image: url(<%= category.image_url %>);" for="post_category_ids_<%= category.name %>">
+            <p><%= category.name %></p>
+          </label>
+        <% end %>
+      </div>
+      <%= f.submit "Submit Categories", class: "btn btn-flat"  %>
+    <% end %>
   </div>
+</div>
