@@ -22,6 +22,7 @@ class ItinerariesController < ApplicationController
   end
 end
 
+
 def new
   @itinerary = Itinerary.new
   authorize @itinerary
@@ -74,6 +75,7 @@ end
 
 private
 
+
 def render_markers
   @markers = [
     {
@@ -95,6 +97,6 @@ def build_user_cat
   end
 
   def itinerary_params
-    params.require(:itinerary).permit(:location, :search_radius, :available_time, :name, :transit_mode)
+    params.require(:itinerary).permit(:location, :search_radius, :available_time, :name)
   end
 end

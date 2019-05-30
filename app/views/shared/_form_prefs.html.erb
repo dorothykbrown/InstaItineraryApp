@@ -1,6 +1,7 @@
 <div class="container">
-  <%= form_for [current_user,@itinerary] do |f| %>
-  <h3>New Itinerary Preferences</h3>
+  <div class="search-container p-3">
+    <%= form_for [current_user,@itinerary] do |f| %>
+    <h4>New Itinerary Preferences</h4>
 
   <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect01">
@@ -12,39 +13,39 @@
   <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect01">
       <%= f.label :name, value: 'Name', class: 'input-group-text' %>
+  
     </div>
-    <%= f.text_area :name %>
-  </div>
 
-  <div class="input-group mb-3">
-    <div class="input-group-prepend" id="inputGroupSelect01">
-      <%= f.label :search_radius, value: 'Distance', class: 'input-group-text' %>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend" id="inputGroupSelect01">
+        <%= f.label :search_radius, value: 'Distance', class: 'input-group-text' %>
+      </div>
+      <%= f.select(:search_radius, [ 'Search radius (km)', ['2 km', 2], ['4 km', 4], ['6 km', 6], ['8 km', 8], ['10 km', 10], ['20 km', 20], ['50 km', 50] ], {}, { class: 'custom-select'}) %>
     </div>
-    <%= f.select(:search_radius, [ 'Select a search radius (in Kilometers)', ['2 km', 2], ['4 km', 4], ['6 km', 6], ['8 km', 8], ['10 km', 10], ['20 km', 20], ['50 km', 50] ], {}, { class: 'custom-select'}) %>
-  </div>
 
-  <div class="input-group mb-3">
-    <div class="input-group-prepend" id="inputGroupSelect02">
-      <%= f.label :available_time, value: 'Availability', class: 'input-group-text' %>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend" id="inputGroupSelect02">
+        <%= f.label :available_time, value: 'Availability', class: 'input-group-text' %>
+      </div>
+      <%= f.select(:available_time, [ 'Available time (in Hours)', ['Morning (8am-Noon)', 1], ['Afternoon (Noon-6pm)', 2], ['Evening (6pm-10pm)', 3], ['Late (10pm-Dawn', 4], ['Anytime', 5] ], {}, { class: 'custom-select'}) %>
     </div>
-      <%= f.select(:available_time, [ 'Select your available time (in Hours)', ['Morning (8am-Noon)', 1], ['Afternoon (Noon-6pm)', 2], ['Evening (6pm-10pm)', 3], ['Late (10pm-Dawn', 4], ['Anytime', 5] ], {}, { class: 'custom-select'}) %>
-  </div>
 
-  <div class="input-group mb-3">
+<!--   <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect03">
-      <%= f.label :transit_mode, value: 'Mode',  class: 'input-group-text' %>
+      <%#= f.label :transit_mode, value: 'Mode',  class: 'input-group-text' %>
     </div>
-      <%= f.select(:transit_mode, [ 'Select your travel mode', ['Walk', 1], ['Automobile', 2] ], {}, { :class => 'custom-select'}) %>
-  </div>
+      <%#= f.select(:transit_mode, [ 'Select your travel mode', ['Walk', 1], ['Automobile', 2] ], {}, { :class => 'custom-select'}) %>
+    </div> -->
 
-  <div>
-    <%= f.submit "Save Itinerary", class: 'center' %>
-  </div>
+    <div>
+      <%= f.submit "Save Itinerary", class: 'btn-flat' %>
+    </div>
 
-  <% end %>
+    <% end %>
+  </div>
 </div>
 
-        <!-- <select class="custom-select" id="inputGroupSelect01"> -->
+<!-- <select class="custom-select" id="inputGroupSelect01"> -->
 
 <!--           <option selected>Select a search radius (in Kilometers)</option>
           <option value="1">2 km</option>
@@ -84,4 +85,4 @@
 <!--     <div>
       <button name="button" type="submit" class="btn btn-pref">Submit</button>
     </div> -->
-  <!-- </div> -->
+    <!-- </div> -->
