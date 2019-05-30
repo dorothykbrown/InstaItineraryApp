@@ -1,8 +1,13 @@
 .avatar {
-  width: 40px;
-  border-radius: 50%;
+  width: 35px;
+  color: #FF7E67;
+  opacity: 0.5;
 }
+
+.avatar:hover {
+  opacity: 1;
+}
+
 .avatar-large {
-  width: 56px;
-  border-radius: 50%;
+  width: 50px;
 }

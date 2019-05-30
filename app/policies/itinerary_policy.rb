@@ -1,7 +1,7 @@
 class ItineraryPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where(user: user)
     end
   end
 
@@ -18,6 +18,10 @@ class ItineraryPolicy < ApplicationPolicy
   end
 
   def create?
+    true
+  end
+
+  def new?
     true
   end
 end

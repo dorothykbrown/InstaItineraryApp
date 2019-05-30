@@ -1,5 +1,5 @@
 <div style="width:600px;">
-  <%= form_tag new_user_itinerary_path, method: :get do %>
-  <%= text_field_tag :query, params[:query] %>
-  <% end %>
+<%= form_tag new_user_itinerary_path(current_user), method: :get do %>
+ <%= text_field_tag :query,params[:query] %>
+<% end %>
 </div>
