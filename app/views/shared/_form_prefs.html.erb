@@ -11,24 +11,25 @@
   </div>
 
   <div class="input-group mb-3">
-    <div class="input-group-prepend" id="inputGroupSelect01">
+    <div class="input-group-prepend" id="inputGroupSelect02">
       <%= f.label :name, value: 'Name', class: 'input-group-text' %>
-  
     </div>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
 
-    <div class="input-group mb-3">
-      <div class="input-group-prepend" id="inputGroupSelect01">
-        <%= f.label :search_radius, value: 'Distance', class: 'input-group-text' %>
-      </div>
-      <%= f.select(:search_radius, [ 'Search radius (km)', ['2 km', 2], ['4 km', 4], ['6 km', 6], ['8 km', 8], ['10 km', 10], ['20 km', 20], ['50 km', 50] ], {}, { class: 'custom-select'}) %>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend" id="inputGroupSelect03">
+      <%= f.label :search_radius, value: 'Distance', class: 'input-group-text' %>
     </div>
+    <%= f.select(:search_radius, [ 'Search radius (km)', ['2 km', 2], ['4 km', 4], ['6 km', 6], ['8 km', 8], ['10 km', 10], ['20 km', 20], ['50 km', 50] ], {}, { class: 'custom-select' }) %>
+  </div>
 
-    <div class="input-group mb-3">
-      <div class="input-group-prepend" id="inputGroupSelect02">
-        <%= f.label :available_time, value: 'Availability', class: 'input-group-text' %>
-      </div>
-      <%= f.select(:available_time, [ 'Available time (in Hours)', ['Morning (8am-Noon)', 1], ['Afternoon (Noon-6pm)', 2], ['Evening (6pm-10pm)', 3], ['Late (10pm-Dawn', 4], ['Anytime', 5] ], {}, { class: 'custom-select'}) %>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend" id="inputGroupSelect04">
+      <%= f.label :available_time, value: 'Availability', class: 'input-group-text' %>
     </div>
+    <%= f.select(:available_time, [ 'Available time (in Hours)', ['Morning (8am-Noon)', 1], ['Afternoon (Noon-6pm)', 2], ['Evening (6pm-10pm)', 3], ['Late (10pm-Dawn', 4], ['Anytime', 5] ], {}, { class: 'custom-select'}) %>
+  </div>
 
 <!--   <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect03">
