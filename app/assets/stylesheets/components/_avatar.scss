@@ -11,8 +11,11 @@
 .avatar-large {
   width: 50px;
 }
+
 .avatar-footer {
   width: 40px;
-  border-radius: 60%;
-  opacity: .5;
+  height: 40px;
+  border-radius: 50%;
+  opacity: .6;
+  overflow: hidden;
 }
