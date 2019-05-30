@@ -33,7 +33,6 @@ class GooglePlacesService
         end
       end
     end
-    self.generate_itin(itin_id, itinerary.available_time)
   end
 
   def self.place_details(place_id, itin_id, cat_id)
@@ -79,14 +78,14 @@ class GooglePlacesService
     Result.create(event: created_event, itinerary: itinerary)
   end
 
-  def self.generate_itin(itin_id, avail_time)
+  def self.generate_itin(itin_id)
     itinerary = Itinerary.find(itin_id)
     itin_time = 0
     itin_event_results = []
-    if itin_time < avail_time
+    if itin_time < itinerary.available_time
       itinerary.events.each do |event|
     # binding.pry
-        remain_time = avail_time - itin_time
+        remain_time = itinerary.available_time - itin_time
         if event.duration.present? && event.duration < remain_time
           itin_event_results << event
           itin_time += event.duration
