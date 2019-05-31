@@ -36,7 +36,7 @@ class ItinerariesController < ApplicationController
         render_markers
       end
     else
-      flash[:error] = "Please enter location"
+      @search_error = true
       render '/pages/home'
     end
   end
