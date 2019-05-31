@@ -1,8 +1,9 @@
 <div class="container p-3">
+  <%= flash[:error] %>
   <div class="search-container">
     <%= form_for :search, url: new_user_itinerary_path(current_user), method: :get do |f| %>
       <div class="search-form-control form-group">
-        <input class="form-control string required" type="text" name="query"
+        <input placeholder="Enter a location" class="form-control string required" type="text" name="query"
       id="search_query"/>
         <div class="i">
           <i class="fas fa-search"></i>
@@ -16,7 +17,7 @@
           </label>
         <% end %>
       </div>
-      <%= f.submit "Submit Categories", class: "btn btn-flat"  %>
+      <%= f.submit "Submit Categories", class: "btn-flat"  %>
     <% end %>
   </div>
 </div>
