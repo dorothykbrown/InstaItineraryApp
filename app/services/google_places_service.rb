@@ -65,7 +65,7 @@ class GooglePlacesService
       duration: event_duration[category.name.to_sym],
       # description: "", ,
       address: event.dig("result", "formatted_address"),
-      # photos: event["result"]["photos"],
+      photo: self.find_event_photo(event.dig("result", "photos")).first,
       rating: event.dig("result", "rating"),
       price: event.dig("result", "price_level"), #price level
       # reviews: event["result"]["reviews"],
@@ -75,6 +75,17 @@ class GooglePlacesService
       category_id: cat_id
     )
     Result.create(event: created_event, itinerary: itinerary)
+  end
+
+  def self.find_event_photo(photo)
+    params = {
+      key: ENV['GOOGLE_API_SERVER_KEY'],
+      ref: photo.dig("photo_reference"),
+      height: photo.dig("height"),
+      width: photo.dig("width")
+    }
+
+    "https://maps.googleapis.com/maps/api/place/photo?photoreference=#{params[:ref]}&sensor=false&maxheight=#{params[:height]}&maxwidth=#{params[:width]}&key=#{params[:key]}"
   end
 
   def self.generate_itin(itin_id)
