@@ -44,6 +44,7 @@ class ItinerariesController < ApplicationController
   def create
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
+    @itinerary.name = @itinerary.location
     category_params
     authorize @itinerary
 
@@ -101,7 +102,7 @@ class ItinerariesController < ApplicationController
 
     @user_categories.each do |category|
       cat = Category.find_by(name: category)
-      # if current_user.cate
+      # if current_user.categories.includes category
       UserCategory.create(category: cat, user: current_user)
     end
   end
