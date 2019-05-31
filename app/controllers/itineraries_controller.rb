@@ -39,12 +39,12 @@ class ItinerariesController < ApplicationController
       flash[:error] = "Please enter location"
       render '/pages/home'
     end
-
   end
 
   def create
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
+    category_params
     authorize @itinerary
 
     if @itinerary.save
@@ -94,6 +94,14 @@ class ItinerariesController < ApplicationController
 
   def set_itinerary
     @itinerary = Itinerary.find(params[:id])
+  end
+
+  def category_params
+   @user_categories = params["categories"].gsub('"', '').gsub('[','').gsub(']','').delete(' ').split(',')
+     @user_categories.each do |category|
+       cat = Category.find_by(name: category)
+        UserCategory.create(category: cat, user: current_user)
+    end
   end
 
   def itinerary_params
