@@ -7,31 +7,35 @@ class GooglePlacesService
     itinerary = Itinerary.find(itin_id)
     user = itinerary.user
     # binding.pry
-    user.categories.each do |category|
-      # output = "json"
-      params = {
-        key: ENV['GOOGLE_API_SERVER_KEY'],
-        input: category.name, # name, address or phone number,
-        # inputtype: "textquery", # can be either textquery or phone number
-        fields: "formatted_address,place_id",
-        # location: "circle:#{itinerary.search_radius}@#{itinerary.latitude},#{itinerary.longitude}"
-      }
-      # binding.pry
-      search_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{itinerary.latitude},#{itinerary.longitude}&radius=#{itinerary.search_radius}&keyword=#{params[:input]}&key=#{params[:key]}"
-      # search_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/#{output}?input=#{params[:input]}&inputtype=#{params[:inputtype]}&fields=#{params[:fields]}&locationbias=#{params[:locationbias]}&key=#{params[:key]}"
-      places_serialized = open(search_url).read
-      # binding.pry
-      places = JSON.parse(places_serialized)
-      if places["status"] == "ZERO_RESULTS"
-        return []
-      else
-        places["results"].each do |place|
-          # place_address = places["candidates"].first["formatted_address"]
-          place_id = place["place_id"]
-          self.place_details(place_id, itin_id, category.id)
+
+    # if user.categories == []
+    #   # raise Exception.new("Please select a category")
+    # else
+      user.categories.each do |category|
+        params = {
+          key: ENV['GOOGLE_API_SERVER_KEY'],
+          input: category.name, # name, address or phone number,
+          # inputtype: "textquery", # can be either textquery or phone number
+          fields: "formatted_address,place_id",
+          # location: "circle:#{itinerary.search_radius}@#{itinerary.latitude},#{itinerary.longitude}"
+        }
+        # binding.pry
+        search_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{itinerary.latitude},#{itinerary.longitude}&radius=#{itinerary.search_radius}&keyword=#{params[:input]}&key=#{params[:key]}"
+        # search_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/#{output}?input=#{params[:input]}&inputtype=#{params[:inputtype]}&fields=#{params[:fields]}&locationbias=#{params[:locationbias]}&key=#{params[:key]}"
+        places_serialized = open(search_url).read
+        # binding.pry
+        places = JSON.parse(places_serialized)
+        if places["status"] == "ZERO_RESULTS"
+          return []
+        else
+          places["results"].each do |place|
+            # place_address = places["candidates"].first["formatted_address"]
+            place_id = place["place_id"]
+            self.place_details(place_id, itin_id, category.id)
+          end
         end
       end
-    end
+    # end
   end
 
   def self.place_details(place_id, itin_id, cat_id)
