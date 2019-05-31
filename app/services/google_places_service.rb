@@ -15,19 +15,16 @@ class GooglePlacesService
         params = {
           key: ENV['GOOGLE_API_SERVER_KEY'],
           input: category.name, # name, address or phone number,
-          # inputtype: "textquery", # can be either textquery or phone number
+          inputtype: "textquery", # can be either textquery or phone number
           fields: "formatted_address,place_id",
-          # location: "circle:#{itinerary.search_radius}@#{itinerary.latitude},#{itinerary.longitude}"
+          location: "circle:#{itinerary.search_radius}@#{itinerary.latitude},#{itinerary.longitude}"
         }
         # binding.pry
         search_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{itinerary.latitude},#{itinerary.longitude}&radius=#{itinerary.search_radius}&keyword=#{params[:input]}&key=#{params[:key]}"
-        # search_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/#{output}?input=#{params[:input]}&inputtype=#{params[:inputtype]}&fields=#{params[:fields]}&locationbias=#{params[:locationbias]}&key=#{params[:key]}"
+        # search_url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{params[:input]}&inputtype=#{params[:inputtype]}&fields=#{params[:fields]}&locationbias=#{params[:locationbias]}&key=#{params[:key]}"
         places_serialized = open(search_url).read
-        # binding.pry
         places = JSON.parse(places_serialized)
-        if places["status"] == "ZERO_RESULTS"
-          return []
-        else
+        if places["status"] != "ZERO_RESULTS"
           places["results"].each do |place|
             # place_address = places["candidates"].first["formatted_address"]
             place_id = place["place_id"]
@@ -50,6 +47,7 @@ class GooglePlacesService
     event_serialized = open(URI::encode(details_url)).read
     event = JSON.parse(event_serialized)
     self.build_event(event, itin_id, cat_id)
+    # binding.pry
   end
 
   def self.build_event(event, itin_id, cat_id)
@@ -69,7 +67,7 @@ class GooglePlacesService
       duration: event_duration[category.name.to_sym],
       # description: "", ,
       address: event.dig("result", "formatted_address"),
-      photo: self.find_event_photo(event.dig("result", "photos")).first,
+      photo: find_event_photo(event.dig("result", "photos")),
       rating: event.dig("result", "rating"),
       price: event.dig("result", "price_level"), #price level
       # reviews: event["result"]["reviews"],
@@ -81,7 +79,13 @@ class GooglePlacesService
     Result.create(event: created_event, itinerary: itinerary)
   end
 
-  def self.find_event_photo(photo)
+  def self.find_event_photo(photos)
+    return nil if photos.nil?
+
+    return nil if photos.empty?
+
+    photo = photos.first
+
     params = {
       key: ENV['GOOGLE_API_SERVER_KEY'],
       ref: photo.dig("photo_reference"),
@@ -105,6 +109,8 @@ class GooglePlacesService
         end
       end
     end
+    # binding.pry
     itin_event_results
+    # binding.pry
   end
 end

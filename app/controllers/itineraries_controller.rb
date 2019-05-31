@@ -97,10 +97,12 @@ class ItinerariesController < ApplicationController
   end
 
   def category_params
-   @user_categories = params["categories"].gsub('"', '').gsub('[','').gsub(']','').delete(' ').split(',')
-     @user_categories.each do |category|
-       cat = Category.find_by(name: category)
-        UserCategory.create(category: cat, user: current_user)
+    @user_categories = params[:categories].split(',')
+
+    @user_categories.each do |category|
+      cat = Category.find_by(name: category)
+      # if current_user.cate
+      UserCategory.create(category: cat, user: current_user)
     end
   end
 

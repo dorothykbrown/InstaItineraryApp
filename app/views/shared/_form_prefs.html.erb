@@ -8,7 +8,7 @@
         </div>
         <%= f.select(:location, [@search.first.display_name,@search.second.display_name] , {}, { class: 'custom-select'}) %>
       </div>
-      <!-- <div class="input-group mb-3">
+      <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect02">
       <%= f.label :name, value: 'Name', class: 'input-group-text' %>
     </div>
@@ -29,7 +29,8 @@
     <%= f.select(:available_time, [ 'Available time (hrs)', ['Morning (8am-Noon)', 4], ['Afternoon (Noon-6pm)', 6], ['Evening (6pm-10pm)', 4], ['Late (10pm-Dawn)', 6], ['Anytime', 24] ], {}, { class: 'custom-select'}) %>
   </div>
 
-  <input type="hidden" name="categories" value="<%= params[:post]["category_ids"] %>">
+  <%= hidden_field_tag :categories, params[:post][:category_ids].join(',') %>
+
 <!-- <div class="input-group mb-3">
     <div class="input-group-prepend" id="inputGroupSelect03">
       <%#= f.label :transit_mode, value: 'Mode',  class: 'input-group-text' %>
