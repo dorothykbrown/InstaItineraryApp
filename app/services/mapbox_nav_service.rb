@@ -13,7 +13,7 @@ class MapboxNavService
   # mapbox/walking
   # mapbox/cycling
 
-  Mapbox.access_token = ENV['MAPBOX_API_KEY']
+  Mapbox.access_token = pk.eyJ1IjoicGF0cmljaWF2aWxhbHV6IiwiYSI6ImNqdmdqNm44cDAzZXM0YXF0NDdseTY3OGUifQ.2Rc2Q3D6hyyDMXSICyaBdw
 
   # Driving directions with required profile parameter.
   drivingDirections = Mapbox::Directions.directions([{
