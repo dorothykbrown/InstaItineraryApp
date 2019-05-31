@@ -25,6 +25,7 @@ class ItinerariesController < ApplicationController
   def new
     @itinerary = Itinerary.new
     authorize @itinerary
+
     if params[:query].present?
       @search = Geocoder.search(params[:query])
       if @search == []
@@ -35,9 +36,8 @@ class ItinerariesController < ApplicationController
         render_markers
       end
     else
-      @search = Geocoder.search("lisbon")
-      @first_result = @search.first
-      render_markers
+      flash[:error] = "Please enter location"
+      render '/pages/home'
     end
   end
 
