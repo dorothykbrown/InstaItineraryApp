@@ -1,7 +1,8 @@
 <div class="container p-3 m-2">
   <h2><%= @itin_results.name %></h2>
   <h5><%= '⭐️' * @itin_results.to_i %></h5>
-  <h5><%= @itin_results.address %></h5>
+  <h5><%= @itin_results.address %> - <%= @itin_results.open_now %></h5>
+  <p><%= link_to @itin_results.website, @itin_results.website %></p>
   <div class="event-images">
   </div>
 </div>

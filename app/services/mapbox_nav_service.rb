@@ -1,6 +1,8 @@
+require "mapbox-sdk"
+
 class MapboxNavService
   def self.direct(itin_id)
-    itinerary =itinerary.find(itin_id)
+    itinerary = itinerary.find(itin_id)
 
     # profile: "mapbox/walking" #walking, driving, cycling, driving-traffic
     # coordinates:
@@ -11,8 +13,7 @@ class MapboxNavService
   # mapbox/walking
   # mapbox/cycling
 
-  require "mapbox-sdk"
-  Mapbox.access_token = "YOUR_ACCESS_TOKEN"
+  Mapbox.access_token = ENV['MAPBOX_API_KEY']
 
   # Driving directions with required profile parameter.
   drivingDirections = Mapbox::Directions.directions([{
