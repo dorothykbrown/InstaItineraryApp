@@ -35,3 +35,25 @@
   margin: 4px auto 8px auto;
   background-color: $light-gray;
 }
+
+.btn {
+  width: 80px;
+  height: 40px;
+  color: $light-gray;
+}
+
+.btn-primary {
+  height: 40px;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  background: #F17761;
+  color: white;
+}
+
+.btn-long {
+  width: 290px;
+  height: 40px;
+  text-align: left;
+}
