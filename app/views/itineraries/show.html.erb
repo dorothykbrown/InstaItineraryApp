@@ -10,7 +10,7 @@
     <% @itin_results.each do |event| %>
       <div class="card-event">
         <div class="card-event-image">
-          <%= image_tag(event.photo) %>
+          <%= image_tag(event.photo) if event.photo.present? %>
           <div class="card-event-infos">
             <h3><strong><%= link_to event.name, event_path(event) %></strong></h3>
             <p><%= '⭐️' * event.rating.to_i %></p>
