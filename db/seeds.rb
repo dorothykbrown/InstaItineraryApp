@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts 'cleaning DB!'
 UserCategory.destroy_all
-Result.destroy_all
-Event.destroy_all
+# Result.destroy_all
+# Event.destroy_all
 Category.destroy_all
-Itinerary.destroy_all
+# Itinerary.destroy_all
 User.destroy_all
 
 
@@ -47,29 +47,29 @@ users.each do |user|
 end
 
 # Itinerary
-itineraries = [
-  {
-    location: 'Lisbon, Portugal',
-    search_radius: 5, # km
-    available_time: 3, # hours
-    name: 'Lisbon Itinerary',
-    user: User.all.sample,
-    transit_mode: 'walk'
-  },
+# itineraries = [
+#   {
+#     location: 'Lisbon, Portugal',
+#     search_radius: 5, # km
+#     available_time: 3, # hours
+#     name: 'Lisbon Itinerary',
+#     user: User.all.sample,
+#     transit_mode: 'walk'
+#   },
 
-  {
-    location: 'Porto, Portugal',
-    search_radius: 2, # km
-    available_time: 3, # hours
-    name: 'Porto Itinerary',
-    user: User.all.sample,
-    transit_mode: 'walk'
-  }
-]
+#   {
+#     location: 'Porto, Portugal',
+#     search_radius: 2, # km
+#     available_time: 3, # hours
+#     name: 'Porto Itinerary',
+#     user: User.all.sample,
+#     transit_mode: 'walk'
+#   }
+# ]
 
-itineraries.each do |itin|
-  Itinerary.create!(itin)
-end
+# itineraries.each do |itin|
+#   Itinerary.create!(itin)
+# end
 
 # Category
 
@@ -80,7 +80,7 @@ categories = [
   },
 
   {
-    name: 'Art and Architecture',
+    name: 'Art',
     image_url: 'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60',
   },
 
@@ -95,12 +95,12 @@ categories = [
   },
 
   {
-    name: 'Historical Sites',
+    name: 'History',
     image_url: 'https://images.unsplash.com/photo-1467383670897-225b16e3cc9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   },
 
   {
-    name: 'Points of Interest',
+    name: 'Sightseeing',
     image_url: 'https://images.unsplash.com/photo-1542567455-cd733f23fbb1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   }
 ]
@@ -110,78 +110,78 @@ categories.each do |category|
 end
 
 # Event
-events = [
-  {
-    name: 'Dancing in the Park',
-    duration: 3,
-    description: 'Salsa social dancing with live music',
-    address: 'Avenida da Liberdade, Lisboa',
-    rating: 4,
-    category: Category.find_by(name: "Music")
-  },
+# events = [
+#   {
+#     name: 'Dancing in the Park',
+#     duration: 3,
+#     description: 'Salsa social dancing with live music',
+#     address: 'Avenida da Liberdade, Lisboa',
+#     rating: 4,
+#     category: Category.find_by(name: "Music")
+#   },
 
-  {
-    name: 'Dine in Lisbon',
-    duration: 2,
-    description: 'Experience authentic Portugues cuisine',
-    address: 'Rua das Portas de Santo Antão 23, Lisboa',
-    rating: 5,
-    category: Category.find_by(name: "Art and Architecture")
-  }
-]
+#   {
+#     name: 'Dine in Lisbon',
+#     duration: 2,
+#     description: 'Experience authentic Portugues cuisine',
+#     address: 'Rua das Portas de Santo Antão 23, Lisboa',
+#     rating: 5,
+#     category: Category.find_by(name: "Art and Architecture")
+#   }
+# ]
 
-events.each do |event|
-  Event.create(event)
-end
-# Results
-results = [
-  {
-    itinerary: Itinerary.first,
-    event: Event.first
-  },
+# events.each do |event|
+#   Event.create(event)
+# end
+# # Results
+# results = [
+#   {
+#     itinerary: Itinerary.first,
+#     event: Event.first
+#   },
 
-  {
-    itinerary: Itinerary.first,
-    event: Event.last
-}]
+#   {
+#     itinerary: Itinerary.first,
+#     event: Event.last
+# }]
 
-results.each do |result|
-  Result.create(result)
-end
+# results.each do |result|
+#   Result.create(result)
+# end
 
-# Results
-results = [
-{
-  itinerary: Itinerary.first,
-  event: Event.first
-},
+# # Results
+# results = [
+# {
+#   itinerary: Itinerary.first,
+#   event: Event.first
+# },
 
-{
-  itinerary: Itinerary.first,
-  event: Event.last
-}]
+# {
+#   itinerary: Itinerary.first,
+#   event: Event.last
+# }]
 
-results.each do |result|
-  Result.create(result)
-end
+# results.each do |result|
+#   Result.create(result)
+# end
 
-# User Categories
-user_categories = [
-{
-  user: User.first,
-  category: Category.all[0]
-},
+# # User Categories
+# user_categories = [
+# {
+#   user: User.first,
+#   category: Category.all[0]
+# },
 
-{
-  user: User.first,
-  category: Category.all[1]
-},
+# {
+#   user: User.first,
+#   category: Category.all[1]
+# },
 
-{
-  user: User.first,
-  category: Category.all[2]
+# {
+#   user: User.first,
+#   category: Category.all[2]
 
-}]
+# }]
 
 # user_categories.each do |user_cat|
 #   UserCateogries.create(user_cat)

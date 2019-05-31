@@ -12,7 +12,6 @@ class ItinerariesController < ApplicationController
 
   def show
     authorize @itinerary
-
     @itin_results = GooglePlacesService.generate_itin(@itinerary.id)
     @markers = @itin_results.map do |event|
       {
@@ -40,6 +39,7 @@ class ItinerariesController < ApplicationController
       @first_result = @search.first
       render_markers
     end
+
   end
 
   def create

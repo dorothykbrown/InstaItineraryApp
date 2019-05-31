@@ -53,7 +53,7 @@ class GooglePlacesService
     category = Category.find(cat_id)
     # estimated duration, in hours, of events based on event category
     event_duration = {
-      'Music': 3,
+      'Music': 2,
       'Art and Architecture': 1,
       'Nature': 2,
       'Nightlife': 2,
@@ -61,15 +61,15 @@ class GooglePlacesService
       'Points of Interest': 1
     }
     created_event = Event.create(
-      name: event["result"]["name"],
+      name: event.dig("result", "name"),
       duration: event_duration[category.name.to_sym],
       # description: "", ,
-      address: event["result"]["formatted_address"],
+      address: event.dig("result", "formatted_address"),
       # photos: event["result"]["photos"],
-      rating: event["result"]["rating"],
-      price: event["result"]["price_level"], #price level
+      rating: event.dig("result", "rating"),
+      price: event.dig("result", "price_level"), #price level
       # reviews: event["result"]["reviews"],
-      website: event["result"]["website"],
+      website: event.dig("result", "website"),
       open_now: event.dig("result", "opening_hours", "open_now"),
       # week_day_text: event["result"]["opening_hours"]["week_day_text"],
       category_id: cat_id
