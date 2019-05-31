@@ -54,7 +54,7 @@ class GooglePlacesService
     category = Category.find(cat_id)
     # estimated duration, in hours, of events based on event category
     event_duration = {
-      'Music': 3,
+      'Music': 2,
       'Art and Architecture': 1,
       'Nature': 2,
       'Nightlife': 2,
@@ -62,15 +62,15 @@ class GooglePlacesService
       'Points of Interest': 1
     }
     created_event = Event.create(
-      name: event["result"]["name"],
+      name: event.dig("result", "name"),
       duration: event_duration[category.name.to_sym],
       # description: "", ,
-      address: event["result"]["formatted_address"],
+      address: event.dig("result", "formatted_address"),
       # photos: event["result"]["photos"],
-      rating: event["result"]["rating"],
-      price: event["result"]["price_level"], #price level
+      rating: event.dig("result", "rating"),
+      price: event.dig("result", "price_level"), #price level
       # reviews: event["result"]["reviews"],
-      website: event["result"]["website"],
+      website: event.dig("result", "website"),
       open_now: event.dig("result", "opening_hours", "open_now"),
       # week_day_text: event["result"]["opening_hours"]["week_day_text"],
       category_id: cat_id
@@ -82,11 +82,11 @@ class GooglePlacesService
     itinerary = Itinerary.find(itin_id)
     itin_time = 0
     itin_event_results = []
-    if itin_time < itinerary.available_time
+    if itin_time <= itinerary.available_time
       itinerary.events.each do |event|
     # binding.pry
         remain_time = itinerary.available_time - itin_time
-        if event.duration.present? && event.duration < remain_time
+        if event.duration.present? && event.duration <= remain_time
           itin_event_results << event
           itin_time += event.duration
         end
