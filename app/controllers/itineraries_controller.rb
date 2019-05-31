@@ -14,11 +14,11 @@ class ItinerariesController < ApplicationController
     authorize @itinerary
     @itin_results = GooglePlacesService.generate_itin(@itinerary.id)
     @markers = @itin_results.map do |event|
-    {
-      lat: event.latitude,
-      lng: event.longitude,
-      infoWindow: render_to_string(partial: "info_window", locals: { property: event })
-    }
+      {
+        lat: event.latitude,
+        lng: event.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { property: event })
+      }
     end
   end
 
@@ -39,7 +39,7 @@ class ItinerariesController < ApplicationController
       @first_result = @search.first
       render_markers
     end
-    # @itin_results = GooglePlacesService.search(@itinerary.id)
+
   end
 
   def create
@@ -49,12 +49,11 @@ class ItinerariesController < ApplicationController
 
     if @itinerary.save
       flash[:success] = "Your itinerary parameters have been saved!"
+      @itin_results = GooglePlacesService.search(@itinerary.id)
       redirect_to user_itinerary_path(current_user, @itinerary)
     else
       render :new
     end
-    @itin_results = GooglePlacesService.search(@itinerary.id)
-
   end
 
   def edit
@@ -88,8 +87,8 @@ class ItinerariesController < ApplicationController
   end
 
   def build_user_cat
-    #get an array from the prevous form
-    #on each create one
+    # get an array from the prevous form
+    # on each create one
     UserCategory.new
   end
 

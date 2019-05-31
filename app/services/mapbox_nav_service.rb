@@ -2,8 +2,8 @@ class MapboxNavService
   def self.direct(itin_id)
     itinerary =itinerary.find(itin_id)
 
-    profile: "mapbox/walking" #walking, driving, cycling, driving-traffic
-    coordinates:
+    # profile: "mapbox/walking" #walking, driving, cycling, driving-traffic
+    # coordinates:
   end
 
   # mapbox/driving-traffic
@@ -12,30 +12,30 @@ class MapboxNavService
   # mapbox/cycling
 
   require "mapbox-sdk"
-Mapbox.access_token = "YOUR_ACCESS_TOKEN"
+  Mapbox.access_token = "YOUR_ACCESS_TOKEN"
 
-# Driving directions with required profile parameter.
-drivingDirections = Mapbox::Directions.directions([{
-  "longitude" => -100,
-  "latitude" => 38
-}, {
-  "longitude" => -90,
-  "latitude" => 38
+  # Driving directions with required profile parameter.
+  drivingDirections = Mapbox::Directions.directions([{
+                                                       "longitude" => -100,
+                                                       "latitude" => 38
+                                                     }, {
+                                                       "longitude" => -90,
+                                                       "latitude" => 38
   }], "driving")
 
-# To provide query parameters to the Directions API, such as `geometries`, `language` or `steps`, add those in a Hash as third parameter (find the full list of parameters (here)[https://www.mapbox.com/api-documentation/navigation/#retrieve-directions]).
+  # To provide query parameters to the Directions API, such as `geometries`, `language` or `steps`, add those in a Hash as third parameter (find the full list of parameters (here)[https://www.mapbox.com/api-documentation/navigation/#retrieve-directions]).
 
-# For instance, to use the `geometries` and `voice_instructions` parameter:
-drivingDirections = Mapbox::Directions.directions([{
-  "longitude" => -100,
-  "latitude" => 38
-}, {
-  "longitude" => -90,
-  "latitude" => 38
-  }], "driving", {
-    geometries: "geojson",
-    voice_instructions: true
+  # For instance, to use the `geometries` and `voice_instructions` parameter:
+  drivingDirections = Mapbox::Directions.directions([{
+                                                       "longitude" => -100,
+                                                       "latitude" => 38
+                                                     }, {
+                                                       "longitude" => -90,
+                                                       "latitude" => 38
+                                                    }], "driving", {
+                                                      geometries: "geojson",
+                                                      voice_instructions: true
   })
 
-# In the above example, you can substitute `driving` for `driving-traffic`, `cycling` or `walking`. For more, [check out the documentation](https://www.mapbox.com/api-documentation/navigation/#directions).
+  # In the above example, you can substitute `driving` for `driving-traffic`, `cycling` or `walking`. For more, [check out the documentation](https://www.mapbox.com/api-documentation/navigation/#directions).
 end

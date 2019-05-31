@@ -22,7 +22,6 @@ class GooglePlacesService
       places_serialized = open(search_url).read
       # binding.pry
       places = JSON.parse(places_serialized)
-      # binding.pry
       if places["status"] == "ZERO_RESULTS"
         return []
       else
@@ -84,7 +83,6 @@ class GooglePlacesService
     itin_event_results = []
     if itin_time <= itinerary.available_time
       itinerary.events.each do |event|
-    # binding.pry
         remain_time = itinerary.available_time - itin_time
         if event.duration.present? && event.duration <= remain_time
           itin_event_results << event
