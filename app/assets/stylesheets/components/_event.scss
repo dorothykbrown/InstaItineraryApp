@@ -44,9 +44,9 @@
 .card-event-infos {
 }
 
-.event-container {
-  width: 700px;
-  margin: 0 auto;
+
+.event-details {
+  margin-top: 10px;
 }
 
 .event {
@@ -55,13 +55,9 @@
   border: 1px rgba(0,0,0,0.2) solid;
 }
 
-.event-images {
-  text-align: right;
-}
-
 .event-images > img {
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   width: 400px;
   height: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
 }
