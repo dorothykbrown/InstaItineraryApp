@@ -1,18 +1,13 @@
-<div class="container">
-  <div class="row">
-    <div class="col m-3">
-      <div class="event-images">
-        <%= image_tag(@event.photo) if @event.photo.present? %>
-      </div>
-    </div>
-    <div class="col m-3">
-      <div class="event-details">
-        <h2><%= @event.name %></h2>
-        <h3><%= '⭐️' * @event.rating.to_i %></h3>
-        <h5><%= @event.address %></h5>
-        <p><%= link_to @event.website, @event.website, target: :_blank  if @event.website.present? %></p>
-        <p><em>Suggested duration: <%= @event.duration.to_i %> hours</em></p>
-      </div>
-    </div>
+<div class="search-container">
+  <div class="event-images m-3">
+    <%= image_tag(@event.photo) if @event.photo.present? %>
+  </div>
+  <div class="event-details m-3">
+    <h2><%= @event.name %></h2>
+    <h4><%= '⭐️' * @event.rating.to_i %></h4>
+    <%= @event.address %>
+    <p><%= link_to @event.website, @event.website, target: :_blank  if @event.website.present? %></p>
+    <p><em>Suggested duration:</em> <%= @event.duration.to_i %> hours</p>
+    <h4><%= '💸' * @event.price.to_i if @event.price.present? %></h4>
   </div>
 </div>
