@@ -51,7 +51,7 @@ class ItinerariesController < ApplicationController
     if @itinerary.save
       flash[:success] = "Your itinerary parameters have been saved!"
       @itin_results = GooglePlacesService.search(@itinerary.id)
-      redirect_to user_itinerary_path(current_user, @itinerary)
+      redirect_to itinerary_path(@itinerary)
     else
       render :new
     end
