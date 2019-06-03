@@ -102,10 +102,12 @@ class GooglePlacesService
     itin_event_results = []
     if itin_time <= itinerary.available_time
       itinerary.events.each do |event|
-        remain_time = itinerary.available_time - itin_time
-        if event.duration.present? && event.duration <= remain_time
-          itin_event_results << event
-          itin_time += event.duration
+        if event.latitude.present? && event.longitude.present?
+          remain_time = itinerary.available_time - itin_time
+          if event.duration.present? && event.duration <= remain_time
+            itin_event_results << event
+            itin_time += event.duration
+          end
         end
       end
     end
