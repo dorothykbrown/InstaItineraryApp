@@ -1,25 +1,37 @@
 // CSS for app/views/itineraries/index.html.erb
-.itin-contain {
-  display: flex;
-  width: 320px;
-}
-
 .itin-show {
+  width: 320px;
+  //height: 160px;
   margin: 0 auto;
-  padding: 10px;
+  align-text: center;
 }
 
 .itin-images {
-  // display: flex;
-  background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  padding: 10px;
+  height: 160px;
+  position: relative;
+  background: $light-gray;
+  display: flex;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  //padding: 10px;
   margin-top: 20px;
+
+  .name {
+    position: absolute;
+    font-size: 14px;
+    top: 0px;
+    text-align: center;
+  }
 }
 
 .itin-images img {
   object-fit: cover;
-  width: 100px;
-  height: 150px;
-  margin-bottom: 10px;
+  width: 300px;
+  //height: 120px;
+  margin: 50px 0px 10px 0px;
+  border-radius: 2px;
+
+}
+
+.itin-title {
+
 }
