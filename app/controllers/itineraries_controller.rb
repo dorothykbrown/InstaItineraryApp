@@ -12,8 +12,12 @@ class ItinerariesController < ApplicationController
 
   def show
     authorize @itinerary
+
     @itin_results = GooglePlacesService.generate_itin(@itinerary.id)
-    @markers = @itin_results.map do |event|
+
+    @markers = @itin_results.select { |mark| mark.longitude && mark.latitude }
+
+    @markers.map! do |event|
       {
         lat: event.latitude,
         lng: event.longitude,
