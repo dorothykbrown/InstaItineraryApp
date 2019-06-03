@@ -44,7 +44,7 @@ class ItinerariesController < ApplicationController
   def create
     @itinerary = Itinerary.new(itinerary_params)
     @itinerary.user = current_user
-    @itinerary.name = @itinerary.location
+    @itinerary.name = "#{@itinerary.location} - #{@itinerary.user.categories.map {|cat| cat.name}.join(", ")}"
     category_params
     authorize @itinerary
 
