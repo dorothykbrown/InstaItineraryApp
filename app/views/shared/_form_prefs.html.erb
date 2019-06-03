@@ -44,31 +44,3 @@
     <% end %>
   </div>
 </div>
-<!-- <select class="custom-select" id="inputGroupSelect01"> -->
-<!--           <option selected>Select a search radius (in Kilometers)</option>
-          <option value="1">2 km</option>
-          <option value="2">4 km</option>
-          <option value="3">6 km</option>
-          <option value="4">8 km</option>
-          <option value="5">10 km</option>
-          <option value="6">20 km</option>
-          <option value="7">50 km</option>
-        </select> -->
-<!--       <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect02">Availability</label>
-
-        </div>
-        <%= f.select(:search_radius, [ 'Search radius (km)', ['2 km', 2], ['4 km', 4], ['6 km', 6], ['8 km', 8], ['10 km', 10], ['20 km', 20], ['50 km', 50] ], {}, { class: 'custom-select' }) %>
-      </div>
-      <div class="input-group mb-3 p-1">
-        <div class="input-group-prepend" id="inputGroupSelect04">
-          <%= f.label :available_time, value: 'Availability', class: 'input-group-text' %>
-        </div>
-        <%= f.select(:available_time, [ 'Available time (hrs)', ['Morning (8am-Noon)', 4], ['Afternoon (Noon-6pm)', 6], ['Evening (6pm-10pm)', 4], ['Late (10pm-Dawn)', 6], ['Anytime', 24] ], {}, { class: 'custom-select'}) %>
-      </div>
-      <%= hidden_field_tag :categories, params[:post][:category_ids].join(',') %>
-      <%= f.submit "Generate Itinerary", class: 'btn-flat' %>
-    <% end %>
-  </div>
-</div>
