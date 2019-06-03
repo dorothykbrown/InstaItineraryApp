@@ -1,0 +1,25 @@
+// CSS for app/views/itineraries/index.html.erb
+.itin-contain {
+  display: flex;
+  width: 320px;
+}
+
+.itin-show {
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.itin-images {
+  // display: flex;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.itin-images img {
+  object-fit: cover;
+  width: 100px;
+  height: 150px;
+  margin-bottom: 10px;
+}
