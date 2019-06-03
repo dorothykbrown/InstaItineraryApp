@@ -1,11 +1,56 @@
-<div class="container">
   <div
   id="map"
-  style="width: 100%;
-  height: 300px;"
+  style="width: 100%;height: 400px;clear:both;overflow: auto;display:block;position:relative"
   data-markers="<%= @markers.to_json %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+  data-mapbox-geometry="<%= @itin_directions.first.dig('routes').first.dig('geometry').to_json %>"
   ></div>
+
+<div class="container">
+  <!-- <script>
+    mapboxgl.accessToken = "<%= ENV['MAPBOX_API_KEY'] %>";
+
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [<%= @itinerary.latitude %>, <%= @itinerary.longitude %>],
+      zoom: 13
+    });
+
+    // map.addControl(new MapboxDirections({
+    //   accessToken: mapboxgl.accessToken
+    // }), 'top-left');
+    map.on('load', function() {
+      map.addLayer({
+        "id": "route",
+        "type": "line",
+        "source": {
+          "type": "geojson",
+          "data": {
+            "type": "Feature",
+            "properties": {},
+            "geometry": <%=raw @itin_directions.first.dig('routes').first.dig('geometry').to_json %>
+          }
+        },
+        "layout": {
+          "line-join": "round",
+          "line-cap": "round"
+        },
+        "paint": {
+          "line-color": "#888",
+          "line-width": 8
+        }
+      });
+    });
+  </script> -->
+  <div class="directions">
+    <ol>
+      <%= @itin_directions.dig("routes", "legs", "steps", "maneuver", "instruction").each do |dir| %>
+        <li><%= dir %></li>
+      <% end %>
+    </ol>
+  </div>
+
   <div class="cards-show p-3">
     <% @itin_results.each do |event| %>
       <div class="card-event">

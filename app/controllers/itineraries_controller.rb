@@ -13,6 +13,9 @@ class ItinerariesController < ApplicationController
   def show
     authorize @itinerary
     @itin_results = GooglePlacesService.generate_itin(@itinerary.id)
+    @itin_directions = MapboxNavService.direct(@itinerary.id)
+    # binding.pry
+
     @markers = @itin_results.map do |event|
       {
         lat: event.latitude,
