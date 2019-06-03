@@ -5,21 +5,39 @@
       <div class="input-group-prepend" id="inputGroupSelect01">
         <%= f.label :location, value: 'Location', class: 'input-group-text' %>
       </div>
-      <%= f.select(:location, [@search.first.display_name,@search.second.display_name] , {}, { class: 'custom-select'}) %>
+
+      <%#= f.text_field :name, class: 'form-control' %>
     </div>
-    <div class="input-group mb-3 p-1">
-      <div class="input-group-prepend" id="inputGroupSelect03">
-        <%= f.label :search_radius, value: 'Distance', class: 'input-group-text' %>
-      </div>
-      <%= f.select(:search_radius, [ 'Search radius (km)', ['2 km', 2], ['4 km', 4], ['6 km', 6], ['8 km', 8], ['10 km', 10], ['20 km', 20], ['50 km', 50] ], {}, { class: 'custom-select' }) %>
+
+    <%#= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend" id="inputGroupSelect03">
+      <%= f.label :search_radius, value: 'Distance', class: 'input-group-text' %>
     </div>
-    <div class="input-group mb-3 p-1">
-      <div class="input-group-prepend" id="inputGroupSelect04">
-        <%= f.label :available_time, value: 'Availability', class: 'input-group-text' %>
-      </div>
-      <%= f.select(:available_time, [ 'Available time (hrs)', ['Morning (8am-Noon)', 4], ['Afternoon (Noon-6pm)', 6], ['Evening (6pm-10pm)', 4], ['Late (10pm-Dawn)', 6], ['Anytime', 24] ], {}, { class: 'custom-select'}) %>
+    <%= f.select(:search_radius, [ 'Search radius (km)', ['2 km', 2], ['4 km', 4], ['6 km', 6], ['8 km', 8], ['10 km', 10], ['15 km', 15] ], {}, { class: 'custom-select' }) %>
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend" id="inputGroupSelect04">
+      <%= f.label :available_time, value: 'Availability', class: 'input-group-text' %>
     </div>
-    <%= hidden_field_tag :categories, params[:post][:category_ids].join(',') %>
-    <%= f.submit "Generate Itinerary", class: 'btn-flat' %>
-  <% end %>
+
+    <%= f.select(:available_time, [ 'Available time (hrs)', ['Morning (8am-Noon)', 4], ['Afternoon (Noon-6pm)', 6], ['Evening (6pm-10pm)', 4], ['Late (10pm-Dawn)', 6], ['Anytime', 24] ], {}, { class: 'custom-select'}) %>
+  </div>
+
+  <%= hidden_field_tag :categories, params[:post][:category_ids].join(',') %>
+
+<!-- <div class="input-group mb-3">
+    <div class="input-group-prepend" id="inputGroupSelect03">
+      <%#= f.label :transit_mode, value: 'Mode',  class: 'input-group-text' %>
+    </div>
+      <%#= f.select(:transit_mode, [ 'Select your travel mode', ['walking', 1], ['driving', 2] ], ['cycling', 3] {}, { :class => 'custom-select'}) %>
+    </div> -->
+    <div>
+      <%= f.submit "Generate Itinerary", class: 'btn-flat' %>
+    </div>
+    <% end %>
+  </div>
 </div>
