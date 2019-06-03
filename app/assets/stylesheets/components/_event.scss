@@ -44,19 +44,24 @@
 .card-event-infos {
 }
 
+.event-container {
+  width: 700px;
+  margin: 0 auto;
+}
+
 .event {
   background-color: white;
   padding: 10px;
   border: 1px rgba(0,0,0,0.2) solid;
 }
 
-.event-image {
+.event-images {
   text-align: right;
 }
 
-.event-image > img {
+.event-images > img {
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  width: 500px;
+  width: 400px;
   height: 100%;
   border-radius: 5px;
 }
