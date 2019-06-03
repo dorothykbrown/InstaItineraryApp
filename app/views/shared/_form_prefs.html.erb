@@ -6,7 +6,7 @@
         <div class="input-group-prepend" id="inputGroupSelect01">
           <%= f.label :location, value: 'Location', class: 'input-group-text' %>
         </div>
-        <%= f.select(:location, [@search.first.display_name,@search.second.display_name] , {}, { class: 'custom-select'}) %>
+        <%= f.select(:location, [@search.first.display_name] , {}, { class: 'custom-select'}) %>
       </div>
 
       <%#= f.text_field :name, class: 'form-control' %>
