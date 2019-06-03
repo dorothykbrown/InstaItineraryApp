@@ -1,12 +1,9 @@
-<div class="container">
-  <div class="search-container p-3">
-    <%= form_for [current_user,@itinerary] do |f| %>
-      <h4>New Itinerary Preferences</h4>
-      <div class="input-group mb-3 p-1">
-        <div class="input-group-prepend" id="inputGroupSelect01">
-          <%= f.label :location, value: 'Location', class: 'input-group-text' %>
-        </div>
-        <%= f.select(:location, [@search.first.display_name,@search.second.display_name] , {}, { class: 'custom-select'}) %>
+<div class="search-container">
+  <%= form_for [current_user,@itinerary] do |f| %>
+    <h4>New Itinerary Preferences</h4>
+    <div class="input-group mb-3 p-1">
+      <div class="input-group-prepend" id="inputGroupSelect01">
+        <%= f.label :location, value: 'Location', class: 'input-group-text' %>
       </div>
 
       <%#= f.text_field :name, class: 'form-control' %>
