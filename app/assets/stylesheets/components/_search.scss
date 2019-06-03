@@ -1,6 +1,7 @@
 .search-container {
   margin: 0 auto;
-  width: 410px;
+  width: 320px;
+  margin-top: 10px;
 }
 
 .search-form-control {
@@ -34,6 +35,19 @@
   background: #FF7E67;
   transition: background 0.3s ease;
   font-size: 22px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn-event {
+  width: 100%;
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #FF7E67;
+  transition: background 0.3s ease;
+  font-size: 14px;
   margin-top: 8px;
   margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);

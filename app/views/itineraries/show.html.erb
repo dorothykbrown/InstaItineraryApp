@@ -1,4 +1,3 @@
-<div class="container">
   <div
   id="map"
   style="width: 100%;
@@ -6,6 +5,7 @@
   data-markers="<%= @markers.to_json %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   ></div>
+<div class="search-container">
   <div class="cards-show p-3">
     <% @itin_results.each do |event| %>
       <div class="card-event">
