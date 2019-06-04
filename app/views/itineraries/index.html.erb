@@ -3,13 +3,16 @@
   <div class="itin-show">
     <h4>My Itineraries</h4>
     <% @itineraries.each do |itinerary| %>
-    <div class="itin-images justify-content-center">
-      <span class="name"><%= link_to itinerary.name, itinerary_path(itinerary) %></span>
+      <div class="itin-images justify-content-center">
+        <% city_name = itinerary.name.split(",").first %>
+        <% categories_name = itinerary.categories.pluck("name").uniq.join(", ") %>
+        <% created = itinerary.created_at %>
 
-      <% itinerary.events.take(1).each do |event| %>
-      <%= image_tag(event.photo) if event.photo.present? %>
-      <% end %>
-    </div>
+        <span class="name line-break"><%= link_to "#{city_name} → #{categories_name} (#{created})", itinerary_path(itinerary) %></span>
+        <% itinerary.events.take(1).each do |event| %>
+        <%= image_tag(event.photo) if event.photo.present? %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
