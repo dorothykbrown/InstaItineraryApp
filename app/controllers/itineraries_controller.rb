@@ -21,11 +21,11 @@ class ItinerariesController < ApplicationController
 
     @markers = @itin_results.select { |mark| mark.longitude && mark.latitude }
 
-    @markers.map! do |event|
+    @markers.map!.with_index do |event, index|
       {
         lat: event.latitude,
         lng: event.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { property: event })
+        infoWindow: render_to_string(partial: "info_window", locals: { property: event, index: index })
       }
     end
   end
