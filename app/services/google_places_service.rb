@@ -56,11 +56,11 @@ class GooglePlacesService
     # estimated duration, in hours, of events based on event category
     event_duration = {
       'Music': 2,
-      'Art and Architecture': 1,
+      'Art': 1,
       'Nature': 2,
       'Nightlife': 2,
-      'Historical Sites': 1,
-      'Points of Interest': 1
+      'History': 1,
+      'Sightseeing': 1
     }
     created_event = Event.create(
       name: event.dig("result", "name"),

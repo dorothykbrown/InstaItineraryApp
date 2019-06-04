@@ -1,5 +1,15 @@
-<h1>Itineraries#index</h1>
+<div class="container">
 
-<!-- Map Markers -->
+  <div class="itin-show">
+    <h4>My Itineraries</h4>
+    <% @itineraries.each do |itinerary| %>
+    <div class="itin-images justify-content-center">
+      <span class="name"><%= itinerary.name %></span>
 
-<p>Find me in app/views/itineraries/index.html.erb</p>
+      <% itinerary.events.take(1).each do |event| %>
+      <%= image_tag(event.photo) if event.photo.present? %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>

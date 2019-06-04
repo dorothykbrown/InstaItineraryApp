@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   resources :categories, only: [:index]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :users, except: [:index] do
-    resources :itineraries
-  end
+  resources :users, except: [:index]
+  resources :itineraries, only: [:index, :new, :show, :create]
   resources :events, only: [:index, :show]
 end

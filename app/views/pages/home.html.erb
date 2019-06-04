@@ -1,7 +1,7 @@
 <div class="container p-3">
   <%= flash[:error] %>
   <div class="search-container">
-    <%= form_for :search, url: new_user_itinerary_path(current_user), method: :get do |f| %>
+    <%= form_for :search, url: new_itinerary_path, method: :get do |f| %>
       <div class="search-wrapper">
         <div class="search-form-control form-group">
           <input placeholder="Enter a location" class="form-control string required" type="text" name="query"

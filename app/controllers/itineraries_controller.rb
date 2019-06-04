@@ -12,11 +12,16 @@ class ItinerariesController < ApplicationController
 
   def show
     authorize @itinerary
+
     @itin_results = GooglePlacesService.generate_itin(@itinerary.id)
+
     @itin_directions = MapboxNavService.direct(@itinerary.id)
     # binding.pry
 
-    @markers = @itin_results.map do |event|
+    @markers = @itin_results.select { |mark| mark.longitude && mark.latitude }
+
+    @markers.map! do |event|
+
       {
         lat: event.latitude,
         lng: event.longitude,
@@ -54,7 +59,7 @@ class ItinerariesController < ApplicationController
     if @itinerary.save
       flash[:success] = "Your itinerary parameters have been saved!"
       @itin_results = GooglePlacesService.search(@itinerary.id)
-      redirect_to user_itinerary_path(current_user, @itinerary)
+      redirect_to itinerary_path(@itinerary)
     else
       render :new
     end

@@ -1,8 +1,9 @@
 class EventsController < ApplicationController
   def index
-    @itinerary = Itinerary.find(params[:id])
+    @itinerary = policy_scope(Itinerary).find(params[:id])
     @events = @itinerary.events
-    @events = Event.where.not(latitude: nil, longitude: nil)
+    @events = policy_scope(Event).where.not(latitude: nil, longitude: nil)
+
     @markers = @events.map do |event|
       {
         lat: event.latitude,
@@ -16,5 +17,6 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    authorize @event
   end
 end
