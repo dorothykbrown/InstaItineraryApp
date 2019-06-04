@@ -36,8 +36,13 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new
     authorize @itinerary
 
+    if params[:my_location]
+      params[:query] = [params[:search][:lat], params[:search][:lon]]
+    end
+
     if params[:query].present?
       @search = Geocoder.search(params[:query])
+
       if @search == []
         flash[:notice] = "No Search Results for that location"
         redirect_to root_path
