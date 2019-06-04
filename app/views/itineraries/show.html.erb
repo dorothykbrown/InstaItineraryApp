@@ -12,6 +12,7 @@
     <!-- first["routes"].first["legs"].first["steps"].first["maneuver"]["instruction"] -->
     <!-- aaa.first[:routes].first[:legs][0][:steps][4][:maneuver][:instruction] -->
     <ol>
+
       <% @itin_directions.dig(0, "routes", 0, "legs").each do |leg| %>
         <% leg.dig("steps").each do |step| %>
          <li><%= step.dig("maneuver", "instruction") %></li>
