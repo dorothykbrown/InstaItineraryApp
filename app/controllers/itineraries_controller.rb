@@ -17,13 +17,11 @@ class ItinerariesController < ApplicationController
 
     @itin_directions = MapboxNavService.direct(@itinerary.id)
 
-
     # binding.pry
 
     @markers = @itin_results.select { |mark| mark.longitude && mark.latitude }
 
     @markers.map! do |event|
-
       {
         lat: event.latitude,
         lng: event.longitude,
