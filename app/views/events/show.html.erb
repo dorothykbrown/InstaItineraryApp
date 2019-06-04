@@ -9,7 +9,12 @@
     <p><%= link_to 'Visit Website', @event.website, target: :_blank  if @event.website.present? %></p>
     <p><em>Suggested duration:</em> <%= @event.duration.to_i %> hours</p>
     <h4><%= '💸' * @event.price.to_i if @event.price.present? %></h4>
+    <ul>
+    <p><% @event.reviews.each do |review| %></p>
+    <li><%= review.content %></li>
+    <% end %>
+    </ul>
     <br>
-    <p><%= link_to 'Back to Results', '#', class: 'btn-event' %></p>
+    <p><%= link_to 'Back to Results', itinerary_path(params[:itinerary_id]), class: 'btn-event' %></p>
   </div>
 </div>

@@ -70,13 +70,30 @@ class GooglePlacesService
       photo: find_event_photo(event.dig("result", "photos")),
       rating: event.dig("result", "rating"),
       price: event.dig("result", "price_level"), #price level
-      # reviews: event["result"]["reviews"],
       website: event.dig("result", "website"),
       open_now: event.dig("result", "opening_hours", "open_now"),
       # week_day_text: event["result"]["opening_hours"]["week_day_text"],
       category_id: cat_id
     )
     Result.create(event: created_event, itinerary: itinerary)
+    GooglePlacesService.find_reviews(event[:id])
+  end
+
+  def self.find_reviews(event_id)
+    if event_id.present?
+      event = Event.find(event_id)
+      reviews_array = event.dig("result", "reviews")
+      reviews_array.each do |review|
+        new_review = Review.new(
+          author: review.dig("author_name"),
+          content: review.dig("text"),
+          rating: review.dig("rating"),
+          date: review.dig("relative_time_description")
+          )
+        new_review.event = event
+        new_review.save
+      end
+    end
   end
 
   def self.find_event_photo(photos)
