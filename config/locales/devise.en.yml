@@ -46,7 +46,7 @@ en:
       updated: "Your account has been updated successfully."
       updated_but_not_signed_in: "Your account has been updated successfully, but since your password was changed, you need to sign in again"
     sessions:
-      signed_in: "Nice job!  Good Login Style!  Where are we going?"
+      signed_in: "Good login style! Where shall we go?"
       signed_out: "Signed out successfully. Miss you already. Call me?"
       already_signed_out: "Signed out successfully. Go if you must, but just know, you can always come home to InstaItinerary."
     unlocks:

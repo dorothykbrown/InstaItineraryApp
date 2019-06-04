@@ -4,7 +4,7 @@
   </div>
   <div class="event-details m-3">
     <h3><%= @event.name %></h3>
-    <h4><%= '⭐️' * @event.rating.to_i %></h4>
+    <h4><%= '⭑' * @event.rating.to_i %></h4>
     <%= @event.address %>
     <p><%= link_to 'Visit Website', @event.website, target: :_blank  if @event.website.present? %></p>
     <p><em>Suggested duration:</em> <%= @event.duration.to_i %> hours</p>
