@@ -3,10 +3,7 @@
     <%= image_tag "https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559035478/icon-logo-ii_xztgh9.png", class: "navbar-icon" %>
     <%= image_tag "https://res.cloudinary.com/dh2tpkp5c/image/upload/v1559036576/ii-text-logo_ro1ucc.png", class: "navbar-logo" %>
   <% end %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="navbar-brand" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
