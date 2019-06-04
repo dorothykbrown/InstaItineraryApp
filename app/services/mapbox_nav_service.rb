@@ -7,11 +7,12 @@ class MapboxNavService
     events = itinerary.events
 
     profile = "walking"
-    coordinates_array = events.each do |event|
-      [] << "#{event.latitude},#{event.longitude};" # -122.42,37.78;-77.03,38.91
+    if events.size > 1
+      coordinates_array = events.map do |event|
+        "#{event.latitude},#{event.longitude};" # -122.42,37.78;-77.03,38.91
+      end
+      direction_search_url = "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates_array.join}?access_token=pk.eyJ1IjoiZG9yb3RoeWticm93biIsImEiOiJjanY4NDBjdHQwMW50NGRwN2ozNGRtc2RhIn0.jrku3I-l-iAula54PdsEDg"
     end
-    direction_search_url = "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates_array.join}?access_token=pk.eyJ1IjoiZG9yb3RoeWticm93biIsImEiOiJjanY4NDBjdHQwMW50NGRwN2ozNGRtc2RhIn0.jrku3I-l-iAula54PdsEDg"
-
     # To provide query parameters to the Directions API, such as `geometries`, `language` or `steps`, add those in a Hash as third parameter (find the full list of parameters (here)[https://www.mapbox.com/api-documentation/navigation/#retrieve-directions]).
 
     # For instance, to use the `geometries` and `voice_instructions` parameter:
@@ -29,10 +30,10 @@ class MapboxNavService
       "walking", {
         geometries: "geojson",
         steps: true,
-        banner_instructions: true,
-        voice_instructions: true,
+        banner_instructions: false,
+        voice_instructions: false,
         language: 'en',
-        roundabout_exits: true,
+        roundabout_exits: false,
         voice_units: 'metric'
       }
     )

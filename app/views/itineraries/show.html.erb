@@ -7,47 +7,15 @@
   ></div>
 
 <div class="container">
-  <!-- <script>
-    mapboxgl.accessToken = "<%= ENV['MAPBOX_API_KEY'] %>";
-
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [<%= @itinerary.latitude %>, <%= @itinerary.longitude %>],
-      zoom: 13
-    });
-
-    // map.addControl(new MapboxDirections({
-    //   accessToken: mapboxgl.accessToken
-    // }), 'top-left');
-    map.on('load', function() {
-      map.addLayer({
-        "id": "route",
-        "type": "line",
-        "source": {
-          "type": "geojson",
-          "data": {
-            "type": "Feature",
-            "properties": {},
-            "geometry": <%=raw @itin_directions.first.dig('routes').first.dig('geometry').to_json %>
-          }
-        },
-        "layout": {
-          "line-join": "round",
-          "line-cap": "round"
-        },
-        "paint": {
-          "line-color": "#888",
-          "line-width": 8
-        }
-      });
-    });
-  </script> -->
   <div class="directions">
+    <h2>Directions</h2>
     <!-- first["routes"].first["legs"].first["steps"].first["maneuver"]["instruction"] -->
+    <!-- aaa.first[:routes].first[:legs][0][:steps][4][:maneuver][:instruction] -->
     <ol>
-    <% @itin_directions.dig(0, "routes", 0, "legs",0, "steps").each do |stepp| %>
-        <li><%= stepp.dig("maneuver", "instruction") %></li>
+      <% @itin_directions.dig(0, "routes", 0, "legs").each do |leg| %>
+        <% leg.dig("steps").each do |step| %>
+         <li><%= step.dig("maneuver", "instruction") %></li>
+        <% end %>
       <% end %>
     </ol>
   </div>
