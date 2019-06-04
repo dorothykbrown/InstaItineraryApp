@@ -17,17 +17,15 @@ class ItinerariesController < ApplicationController
 
     @itin_directions = MapboxNavService.direct(@itinerary.id)
 
-
     # binding.pry
 
     @markers = @itin_results.select { |mark| mark.longitude && mark.latitude }
 
-    @markers.map! do |event|
-
+    @markers.map!.with_index do |event, index|
       {
         lat: event.latitude,
         lng: event.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { property: event })
+        infoWindow: render_to_string(partial: "info_window", locals: { property: event, index: index })
       }
     end
   end
@@ -36,8 +34,13 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new
     authorize @itinerary
 
+    if params[:my_location]
+      params[:query] = [params[:search][:lat], params[:search][:lon]]
+    end
+
     if params[:query].present?
       @search = Geocoder.search(params[:query])
+
       if @search == []
         flash[:notice] = "No Search Results for that location"
         redirect_to root_path
