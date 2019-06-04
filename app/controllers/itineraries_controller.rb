@@ -16,6 +16,8 @@ class ItinerariesController < ApplicationController
     @itin_results = GooglePlacesService.generate_itin(@itinerary.id)
 
     @itin_directions = MapboxNavService.direct(@itinerary.id)
+
+
     # binding.pry
 
     @markers = @itin_results.select { |mark| mark.longitude && mark.latitude }

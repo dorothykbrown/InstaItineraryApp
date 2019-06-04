@@ -44,9 +44,11 @@
     });
   </script> -->
   <div class="directions">
+    <!-- first["routes"].first["legs"].first["steps"].first["maneuver"]["instruction"] -->
     <ol>
-      <%= @itin_directions.dig("routes", "legs", "steps", "maneuver", "instruction").each do |dir| %>
-        <li><%= dir %></li>
+    <% @itin_directions.dig(0, "routes", 0, "legs",0, "steps").each do |stepp| %>
+      <% byebug %>
+        <li><%= stepp.dig("maneuver", "instruction") %></li>
       <% end %>
     </ol>
   </div>
