@@ -4,7 +4,7 @@
     <h4>My Itineraries</h4>
     <% @itineraries.each do |itinerary| %>
     <div class="itin-images justify-content-center">
-      <span class="name"><%= itinerary.name %></span>
+      <span class="name"><%= link_to itinerary.name, itinerary_path(itinerary) %></span>
 
       <% itinerary.events.take(1).each do |event| %>
       <%= image_tag(event.photo) if event.photo.present? %>

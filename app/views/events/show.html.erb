@@ -10,6 +10,6 @@
     <p><em>Suggested duration:</em> <%= @event.duration.to_i %> hours</p>
     <h4><%= '💸' * @event.price.to_i if @event.price.present? %></h4>
     <br>
-    <%= link_to 'Back to Results', itineraries_path(@itineraries), class: 'btn-event' %>
+    <p><%= link_to 'Back to Results', itinerary_path(params[:itinerary_id]), class: 'btn-event' %></p>
   </div>
 </div>
