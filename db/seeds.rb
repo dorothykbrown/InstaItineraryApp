@@ -19,7 +19,7 @@ puts 'Creating Seeds...'
 # Category
 categories = [
   {
-    name: 'Music',
+    name: 'Live Music',
     image_url: 'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60',
   },
 
@@ -29,7 +29,7 @@ categories = [
   },
 
   {
-    name: 'Nature',
+    name: 'Parks',
     image_url: 'https://images.unsplash.com/photo-1453785675141-67637e2d4b5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   },
 
@@ -39,12 +39,12 @@ categories = [
   },
 
   {
-    name: 'History',
+    name: 'Museums',
     image_url: 'https://images.unsplash.com/photo-1467383670897-225b16e3cc9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   },
 
   {
-    name: 'Sightseeing',
+    name: 'Attractions',
     image_url: 'https://images.unsplash.com/photo-1542567455-cd733f23fbb1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60'
   }
 ]
