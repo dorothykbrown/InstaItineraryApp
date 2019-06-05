@@ -7,7 +7,7 @@
 }
 
 .itin-images {
-  height: 160px;
+  height: 190px;
   position: relative;
   background: $light-gray;
   display: flex;
@@ -17,15 +17,15 @@
   .name {
     position: absolute;
     font-size: 14px;
-    top: 0px;
+    top: 5px;
     text-align: center;
   }
 
   .created {
-    font-size: 12px;
+    font-size: 13px;
     color: $med-gray;
     position: absolute;
-    top: 20px;
+    top: 23px;
     text-align: center;
   }
 }
@@ -33,7 +33,7 @@
 .itin-images img {
   object-fit: cover;
   width: 300px;
-  //height: 120px;
+  //height: 160px;
   margin: 50px 0px 10px 0px;
   border-radius: 2px;
 

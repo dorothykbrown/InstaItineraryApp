@@ -11,12 +11,6 @@
           </div>
         </div>
 
-        <button id="position-submit" disabled="true" name="my_location" type="submit" class="btn-event">
-          Current Location
-        </button>
-        <%= f.hidden_field :lat, id: 'lat' %>
-        <%= f.hidden_field :lon, id: 'lon' %>
-
         <% if @search_error == true %>
           <small class="text-danger">Please enter a location</small>
         <% end %>
@@ -33,24 +27,3 @@
     <% end %>
   </div>
 </div>
-
-<script>
-  (function() {
-    navigator.geolocation.getCurrentPosition(
-      pos => {
-        var button = document.getElementById('position-submit');
-        button.disabled = false;
-
-        var lat = document.getElementById('lat');
-        lat.value = pos.coords.latitude
-
-        var lon = document.getElementById('lon');
-        lon.value = pos.coords.longitude;
-      },
-      () => { console.log('ERROR') });
-  })();
-
-  function searchBasedOnLocation() {
-
-  }
-</script>

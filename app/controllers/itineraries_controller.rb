@@ -38,10 +38,6 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new
     authorize @itinerary
 
-    if params[:my_location]
-      params[:query] = [params[:search][:lat], params[:search][:lon]]
-    end
-
     if params[:query].present?
       @search = Geocoder.search(params[:query])
 
