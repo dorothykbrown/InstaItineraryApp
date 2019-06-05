@@ -6,6 +6,8 @@ class MapboxNavService
     # itinerary = Itinerary.find(itin_id)
     events = itin_array
 
+    profile = "walking"
+
     if events.size > 1
       profile = "walking"
         coordinates_array = events.map do |event|
