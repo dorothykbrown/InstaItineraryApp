@@ -1,7 +1,7 @@
 <div class="search-container">
   <div class="itin-show">
     <h4>My Itineraries</h4>
-    <% @itineraries.each do |itinerary| %>
+    <% itin = @itineraries.each do |itinerary| %>
       <% if itinerary.events.size > 1 %>
         <div class="itin-images justify-content-center">
           <% city_name = itinerary.name.split(",").first %>
@@ -10,12 +10,13 @@
 
           <span class="name"><%= link_to "#{city_name} → #{created.strftime("%F")}", itinerary_path(itinerary) %></span>
           <span class="created"><%= categories_name %></span>
-          <!-- <span class="created"> <%#= created.strftime("%F") %></span> -->
+
           <% itinerary.events.take(1).each do |event| %>
           <%= image_tag(event.photo) if event.photo.present? %>
           <% end %>
         </div>
       <% end %>
     <% end %>
+    <%= itin.sort_by { |date| date.created_at }.reverse%>
   </div>
 </div>

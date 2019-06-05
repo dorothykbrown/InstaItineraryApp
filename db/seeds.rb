@@ -108,17 +108,17 @@ events = [
   },
 
   {
-    name: 'Jerónimos Monastery',
+    name: 'Padrão dos Descobrimentos',
     duration: 2,
-    description: 'Late Gothic Manueline-style monastery housing archaeology & maritime museums in its wings.',
-    address: 'Praça do Império 1400-206 Lisboa',
+    description: 'Built in 1939 to honor the Portuguese Discoveries of the golden XV and XVI centuries.',
+    address: 'Avenida Brasília, 1400-038 Lisboa',
     rating: 4,
-    category: Category.find_by(name: "Museums"),
-    latitude: 38.697849,
-    longitude: -9.206865,
+    category: Category.find_by(name: "Attractions"),
+    latitude: 38.693578,
+    longitude: -9.205679,
     price: 1,
-    website: 'http://www.mosteirojeronimos.gov.pt/pt/index.php',
-    photo: 'https://lh6.googleusercontent.com/proxy/RmRy1nQEz65aNBpenwWJ225azO1ar2IRt5Ly9cGFsKzP5GCM1p0x_66aGAp5ZQKpJZkqNj5K8l7lrknv6Df-5NlIix747yWplpO8BnR1VMjdPgA5yUi9EAse-Plq_V8_NHui5MpElQz3cli7bZMezwq3IUQ=w200-h268-n-k-no',
+    website: 'https://padraodosdescobrimentos.pt/',
+    photo: 'https://lisbonlisboaportugal.com/images/400pxbelem/padrao-dos-descobrimentos-belem-lisbon.jpg',
   },
 
     {
