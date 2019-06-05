@@ -78,21 +78,25 @@ class GooglePlacesService
       category_id: cat_id
     )
     Result.create(event: created_event, itinerary: itinerary)
-    GooglePlacesService.find_reviews(event, created_event[:id])
+    if created_event[:id].present?
+      GooglePlacesService.find_reviews(event, created_event[:id])
+    end
   end
 
   def self.find_reviews(event, event_id)
     if event.present?
       reviews_array = event.dig("result", "reviews")
-      reviews_array.each do |review|
-        new_review = Review.new(
-          author: review.dig("author_name"),
-          content: review.dig("text"),
-          rating: review.dig("rating"),
-          date: review.dig("relative_time_description")
+      if reviews_array.size.positive?
+        reviews_array.each do |review|
+          new_review = Review.new(
+            author: review.dig("author_name"),
+            content: review.dig("text"),
+            rating: review.dig("rating"),
+            date: review.dig("relative_time_description")
           )
-        new_review.event = Event.find(event_id)
-        new_review.save
+          new_review.event = Event.find(event_id)
+          new_review.save
+        end
       end
     end
   end
@@ -121,16 +125,24 @@ class GooglePlacesService
     if itin_time <= itinerary.available_time
       itinerary.events.each do |event|
         if event.latitude.present? && event.longitude.present?
+          if event == itinerary.events.first
+            start = itinerary
+          else
+            start = itin_event_results.last
+          end
+          navigation = MapboxNavService.direct_a_to_b(start, event)
+          travel_time = (navigation.first["routes"].first["duration"] / 3600.0).round(2) # Returns travel time in hours, rounded to 2 decimal places
           remain_time = itinerary.available_time - itin_time
-          if event.duration.present? && event.duration <= remain_time
+          tot_event_time = event.duration + travel_time
+          if event.duration.present? && tot_event_time <= remain_time
             itin_event_results << event
-            itin_time += event.duration
+            itin_time += tot_event_time
           end
         end
       end
     end
     # binding.pry
-    itin_event_results
+    [itin_event_results, itin_time]
     # binding.pry
   end
 end
