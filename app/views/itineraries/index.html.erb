@@ -1,7 +1,7 @@
 <div class="search-container">
   <div class="itin-show">
     <h4>My Itineraries</h4>
-    <% itin = @itineraries.each do |itinerary| %>
+    <% @itineraries.each do |itinerary| %>
       <% if itinerary.events.size > 1 %>
         <div class="itin-images justify-content-center">
           <% city_name = itinerary.name.split(",").first %>
@@ -13,10 +13,10 @@
 
           <% itinerary.events.take(1).each do |event| %>
           <%= image_tag(event.photo) if event.photo.present? %>
+
           <% end %>
         </div>
       <% end %>
     <% end %>
-    <%= itin.sort_by { |date| date.created_at }.reverse%>
   </div>
 </div>
