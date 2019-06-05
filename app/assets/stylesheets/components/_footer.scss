@@ -1,6 +1,6 @@
 .page-footer {
   display: flex;
-  height: 60px;
+  height: 80px;
   background: $light-gray;
   align-items: center;
   justify-content: space-between;
@@ -10,6 +10,7 @@
   left: 0;
   bottom: 0;
   width: 100%;
+  overflow: hidden;
 }
 
 .footer-text {
