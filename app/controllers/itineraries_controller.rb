@@ -13,13 +13,16 @@ class ItinerariesController < ApplicationController
   def show
     authorize @itinerary
 
-    @itin_results = GooglePlacesService.generate_itin(@itinerary.id)
+    itin_results = GooglePlacesService.generate_itin(@itinerary.id)
+    @itin_events = itin_results.first
+    @itin_time = itin_results.last
 
-    @itin_directions = MapboxNavService.direct(@itinerary.id)
+    @itin_directions = MapboxNavService.direct(@itin_events)
+
 
     # binding.pry
 
-    @markers = @itin_results.select { |mark| mark.longitude && mark.latitude }
+    @markers = @itin_events.select { |mark| mark.longitude && mark.latitude }
 
     @markers.map!.with_index do |event, index|
       {
