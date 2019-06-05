@@ -49,7 +49,7 @@
 
             <h3><strong><%= link_to event.name, itinerary_event_path(@itinerary, event) %></strong></h3>
             <p><%= '⭐️' * event.rating.to_i %></p>
-            <p><em><%= event.duration.to_i %> hours</em></p>
+            <p><em><%= event.duration.to_i %> hr</em></p>
             <p><%= event.address %></p>
           </div>
         </div>
