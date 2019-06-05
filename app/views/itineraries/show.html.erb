@@ -33,6 +33,7 @@
               <% end %>
               <% end %>
             </ol>
+            <p><strong>Total Itinerary Time: <%= @itin_time.to_i %> hrs <%= ((@itin_time - @itin_time.to_i)*60).to_i %> mins</strong></p>
             <div class="modal-footer">
               <button type="button" class="btn btn-event" data-dismiss="modal">Close</button>
             </div>
@@ -41,7 +42,7 @@
       </div>
     </div>
     <div class="cards-show">
-      <% @itin_results.each do |event| %>
+      <% @itin_events.each do |event| %>
       <div class="card-event">
         <div class="card-event-image">
           <%= image_tag(event.photo) if event.photo.present? %>

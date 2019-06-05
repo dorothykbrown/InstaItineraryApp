@@ -2,26 +2,58 @@ require "mapbox-sdk"
 Mapbox.access_token = ENV['MAPBOX_API_KEY']
 
 class MapboxNavService
-  def self.direct(itin_id)
-    itinerary = Itinerary.find(itin_id)
-    events = itinerary.events
+  def self.direct(itin_array)
+    # itinerary = Itinerary.find(itin_id)
+    events = itin_array
 
-    profile = "walking"
     if events.size > 1
-      coordinates_array = events.map do |event|
-        "#{event.latitude},#{event.longitude};" # -122.42,37.78;-77.03,38.91
-      end
-      direction_search_url = "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates_array.join}?access_token=pk.eyJ1IjoiZG9yb3RoeWticm93biIsImEiOiJjanY4NDBjdHQwMW50NGRwN2ozNGRtc2RhIn0.jrku3I-l-iAula54PdsEDg"
-    end
-    # To provide query parameters to the Directions API, such as `geometries`, `language` or `steps`, add those in a Hash as third parameter (find the full list of parameters (here)[https://www.mapbox.com/api-documentation/navigation/#retrieve-directions]).
+      profile = "walking"
+        coordinates_array = events.map do |event|
+          "#{event.latitude},#{event.longitude};" # -122.42,37.78;-77.03,38.91
+        end
+        direction_search_url = "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates_array.join}?access_token=pk.eyJ1IjoiZG9yb3RoeWticm93biIsImEiOiJjanY4NDBjdHQwMW50NGRwN2ozNGRtc2RhIn0.jrku3I-l-iAula54PdsEDg"
+      # To provide query parameters to the Directions API, such as `geometries`, `language` or `steps`, add those in a Hash as third parameter (find the full list of parameters (here)[https://www.mapbox.com/api-documentation/navigation/#retrieve-directions]).
 
-    # For instance, to use the `geometries` and `voice_instructions` parameter:
-    event_coordinates = events.map do |event|
-      next if event.longitude.blank? || event.latitude.blank?
+      # For instance, to use the `geometries` and `voice_instructions` parameter:
+      event_coordinates = events.map do |event|
+        next if event.longitude.blank? || event.latitude.blank?
+
+        {
+          "longitude" => event.longitude,
+          "latitude" => event.latitude
+        }
+      end.compact
+
+      Mapbox::Directions.directions(
+        event_coordinates,
+        "walking", {
+          geometries: "geojson",
+          steps: true,
+          banner_instructions: false,
+          voice_instructions: false,
+          language: 'en',
+          roundabout_exits: false,
+          voice_units: 'metric'
+        }
+      )
+    else
+      flash[:notice] = "No Search Results for these parameters"
+    end
+  end
+
+  def self.direct_a_to_b(starting, ending)
+    profile = "walking"
+    coordinates = "#{starting.latitude},#{starting.longitude};#{ending.latitude},#{ending.longitude};"
+    direction_search_url = "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates}?access_token=pk.eyJ1IjoiZG9yb3RoeWticm93biIsImEiOiJjanY4NDBjdHQwMW50NGRwN2ozNGRtc2RhIn0.jrku3I-l-iAula54PdsEDg"
+
+    event_coordinates = coordinates.split(';')
+
+    event_coordinates.map! do |event|
+      next if event.split(',')[0].blank? || event.split(',')[1].blank?
 
       {
-        "longitude" => event.longitude,
-        "latitude" => event.latitude
+        "longitude" => event.split(',')[1].to_f,
+        "latitude" => event.split(',')[0].to_f
       }
     end.compact
 
