@@ -7,7 +7,7 @@
     <h4><%= '⭑' * @event.rating.to_i %></h4>
     <%= @event.address %>
     <p><%= link_to 'Visit Website', @event.website, target: :_blank  if @event.website.present? %></p>
-    <p><em>Suggested duration:</em> <%= @event.duration.to_i %> hours</p>
+    <p><em>Suggested duration:</em> <%= @event.duration.to_i %> hr</p>
     <h4><%= '💸' * @event.price.to_i if @event.price.present? %></h4>
     <h5>Reviews</h5>
     <div class="review">
