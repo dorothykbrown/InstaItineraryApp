@@ -7,6 +7,7 @@ class MapboxNavService
     events = itinerary.events
 
     profile = "walking"
+
     if events.size > 1
       coordinates_array = events.map do |event|
         "#{event.latitude},#{event.longitude};" # -122.42,37.78;-77.03,38.91
