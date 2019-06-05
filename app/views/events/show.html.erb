@@ -11,13 +11,15 @@
     <h4><%= '💸' * @event.price.to_i if @event.price.present? %></h4>
     <h5>Reviews</h5>
     <div class="review">
-      <% @event.reviews.each do |review| %>
-        <p>
-          <h6><strong><%= review.author %></strong></h6>
-          <p><%= '⭑' * review.rating %> &nbsp; <em><%= review.date %></em></p>
-            <%= review.content %></p>
-        </p>
-        <hr>
+      <% if @event.reviews.size > 0 %>
+        <% @event.reviews.each do |review| %>
+          <p>
+            <h6><strong><%= review.author %></strong></h6>
+            <p><%= '⭑' * review.rating %> &nbsp; <em><%= review.date %></em></p>
+              <%= review.content %></p>
+          </p>
+          <hr>
+        <% end %>
       <% end %>
     </div>
     <br>
