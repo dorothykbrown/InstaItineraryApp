@@ -1,11 +1,15 @@
 .page-footer {
   display: flex;
-  height: 80px;
+  height: 60px;
   background: $light-gray;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 50px;
+  padding: 30px;
   color: rgba(0,0,0,0.3);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .footer-text {

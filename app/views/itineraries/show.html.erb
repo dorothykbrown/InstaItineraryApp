@@ -1,28 +1,47 @@
+<div class="container">
   <div
   id="map"
   style="width: 100%;height: 400px;clear:both;overflow: auto;display:block;position:relative"
+  data-mapbox-max-zoom="20"
   data-markers="<%= @markers.to_json %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   data-mapbox-geometry="<%= @itin_directions.first.dig('routes').first.dig('geometry').to_json %>"
   ></div>
+  <div class="search-container">
+    <button type="button" class="btn btn-event" data-toggle="modal" data-target="#exampleModalCenter">
+      Walking Directions
+    </button>
 
-<div class="container">
-  <div class="directions">
-    <h2>Directions</h2>
-    <!-- first["routes"].first["legs"].first["steps"].first["maneuver"]["instruction"] -->
-    <!-- aaa.first[:routes].first[:legs][0][:steps][4][:maneuver][:instruction] -->
-    <ol>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Directions</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- first["routes"].first["legs"].first["steps"].first["maneuver"]["instruction"] -->
+            <!-- aaa.first[:routes].first[:legs][0][:steps][4][:maneuver][:instruction] -->
+            <ol>
 
-      <% @itin_directions.dig(0, "routes", 0, "legs").each do |leg| %>
-        <% leg.dig("steps").each do |step| %>
-         <li><%= step.dig("maneuver", "instruction") %></li>
-        <% end %>
-      <% end %>
-    </ol>
-  </div>
-
-  <div class="cards-show p-3">
-    <% @itin_results.each do |event| %>
+              <% @itin_directions.dig(0, "routes", 0, "legs").each do |leg| %>
+              <% leg.dig("steps").each do |step| %>
+              <li><%= step.dig("maneuver", "instruction") %></li>
+              <% end %>
+              <% end %>
+            </ol>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-event" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cards-show">
+      <% @itin_results.each do |event| %>
       <div class="card-event">
         <div class="card-event-image">
           <%= image_tag(event.photo) if event.photo.present? %>
@@ -35,6 +54,7 @@
           </div>
         </div>
       </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
