@@ -4,10 +4,14 @@
   background: $light-gray;
   align-items: center;
   justify-content: space-between;
-  padding: 30px;
+  padding: 20px;
   color: rgba(0,0,0,0.3);
   width: 100%;
   overflow: hidden;
+}
+
+.img-group {
+  margin-top: 10px;
 }
 
 .footer-text {
