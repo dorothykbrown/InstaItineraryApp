@@ -1,5 +1,8 @@
 
 <%= (index + 1) %> - <%= property.name %>
 <% if index.zero? %>
-  <h5>IT STARTS HERE!</h5>
+  <p><strong>START HERE!</strong></p>
+<% end %>
+<% if last %>
+  <p><strong>END HERE!</strong></p>
 <% end %>
