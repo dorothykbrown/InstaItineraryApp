@@ -55,18 +55,20 @@ class GooglePlacesService
     category = Category.find(cat_id)
     # estimated duration, in hours, of events based on event category
     event_duration = {
-      'Music': 2,
+      'Live Music': 2,
       'Art': 1,
-      'Nature': 2,
+      'Parks': 2,
       'Nightlife': 2,
-      'History': 1,
-      'Sightseeing': 1
+      'Museums': 1,
+      'Attractions': 1
     }
     created_event = Event.create(
       name: event.dig("result", "name"),
       duration: event_duration[category.name.to_sym],
       # description: "", ,
       address: event.dig("result", "formatted_address"),
+      latitude: event.dig("result", "geometry", "location", "lat"),
+      longitude: event.dig("result", "geometry", "location", "lng"),
       photo: find_event_photo(event.dig("result", "photos")),
       rating: event.dig("result", "rating"),
       price: event.dig("result", "price_level"), #price level
@@ -76,12 +78,11 @@ class GooglePlacesService
       category_id: cat_id
     )
     Result.create(event: created_event, itinerary: itinerary)
-    GooglePlacesService.find_reviews(event[:id])
+    GooglePlacesService.find_reviews(event, created_event[:id])
   end
 
-  def self.find_reviews(event_id)
-    if event_id.present?
-      event = Event.find(event_id)
+  def self.find_reviews(event, event_id)
+    if event.present?
       reviews_array = event.dig("result", "reviews")
       reviews_array.each do |review|
         new_review = Review.new(
@@ -90,7 +91,7 @@ class GooglePlacesService
           rating: review.dig("rating"),
           date: review.dig("relative_time_description")
           )
-        new_review.event = event
+        new_review.event = Event.find(event_id)
         new_review.save
       end
     end
