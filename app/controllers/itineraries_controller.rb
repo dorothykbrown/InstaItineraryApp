@@ -25,7 +25,11 @@ class ItinerariesController < ApplicationController
       {
         lat: event.latitude,
         lng: event.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { property: event, index: index })
+        infoWindow: render_to_string(partial: "info_window", locals: {
+          property: event,
+          index: index,
+          last: index == @markers.length - 1
+        })
       }
     end
   end
