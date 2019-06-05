@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:index]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users, except: [:index]
-  resources :itineraries, only: [:index, :new, :show, :create] do
+  resources :itineraries, only: [:index, :new, :show, :create, :destroy] do
     resources :events, only: :show
   end
 end

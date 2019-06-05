@@ -1,6 +1,6 @@
 class Itinerary < ApplicationRecord
   belongs_to :user
-  has_many :results
+  has_many :results, dependent: :destroy
   has_many :events, through: :results
   has_many :categories, through: :events
   geocoded_by :location

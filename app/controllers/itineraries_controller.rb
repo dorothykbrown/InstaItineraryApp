@@ -85,7 +85,11 @@ class ItinerariesController < ApplicationController
 
   def destroy
     authorize @itinerary
-    @itinerary.destroy
+    if @itinerary.destroy
+      redirect_to itineraries_path, notice: 'Itinerary was successfully removed.'
+    else
+      render :index, notice: 'You have no itineraries to remove.'
+    end
   end
 
   private
