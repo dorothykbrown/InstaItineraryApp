@@ -124,7 +124,6 @@ class GooglePlacesService
   def self.generate_itin(itinerary)
     itin_time = 0
     itin_event_results = []
-
     if itin_time <= itinerary.available_time
       itinerary.events.each do |event|
         if event.latitude.present? && event.longitude.present?

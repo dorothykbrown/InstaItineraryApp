@@ -129,7 +129,7 @@ class ItinerariesController < ApplicationController
     @user_categories.each do |category|
       cat = Category.find_by(name: category)
       # if current_user.categories.includes category
-      UserCategory.create(category: cat, user: current_user)
+      UserCategory.first_or_create(category: cat, user: current_user)
     end
   end
 
