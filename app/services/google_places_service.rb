@@ -11,8 +11,7 @@ class GooglePlacesService
     #   # raise Exception.new("Please select a category")
     # else
       user.categories.each do |category|
-        params = {
-          key: ENV['GOOGLE_API_SERVER_KEY'],
+        params = { key: ENV['GOOGLE_API_SERVER_KEY'],
           input: category.name, # name, address or phone number,
           inputtype: "textquery", # can be either textquery or phone number
           fields: "formatted_address,place_id",

@@ -127,9 +127,11 @@ class ItinerariesController < ApplicationController
     @user_categories = params[:categories].split(',')
 
     @user_categories.each do |category|
+
       cat = Category.find_by(name: category)
-      # if current_user.categories.includes category
-      UserCategory.first_or_create(category: cat, user: current_user)
+      unless current_user.categories.include?(category)
+        UserCategory.create(category: cat, user: current_user)
+      end
     end
   end
 
