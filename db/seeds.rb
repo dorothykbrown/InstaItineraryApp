@@ -106,7 +106,7 @@ events = [
     longitude: -9.215977,
     price: 1,
     website: 'http://www.torrebelem.gov.pt/pt/index.php',
-    photo: 'https://cdn.pixabay.com/photo/2017/02/21/18/05/lisbon-2086878_1280.jpg',
+    remote_photo_url: 'https://res.cloudinary.com/dkqk3hnm6/image/upload/v1559830115/lisbon-2086878_1280_z0u1bf.jpg',
   },
 
   {
@@ -120,7 +120,7 @@ events = [
     longitude: -9.205679,
     price: 1,
     website: 'https://padraodosdescobrimentos.pt/',
-    photo: 'https://lisbonlisboaportugal.com/images/400pxbelem/padrao-dos-descobrimentos-belem-lisbon.jpg',
+    remote_photo_url: 'https://res.cloudinary.com/dkqk3hnm6/image/upload/v1559830134/padrao-dos-descobrimentos-belem-lisbon_acxal2.jpg',
   },
 
     {
@@ -134,7 +134,7 @@ events = [
     longitude: -9.203195,
     price: 1,
     website: 'https://pasteisdebelem.pt/en/',
-    photo: 'https://pasteisdebelem.pt/wp-content/uploads/2014/05/pastel_de_belem_caixa.jpg',
+    remote_photo_url: 'https://res.cloudinary.com/dkqk3hnm6/image/upload/v1559830153/pastel_de_belem_caixa_b4ln6y.jpg',
   }
 ]
 
