@@ -1,44 +1,53 @@
-// CSS for app/views/itineraries/index.html.erb
 .itin-show {
   width: 320px;
-  //height: 160px;
   margin: 0 auto;
   align-text: center;
 }
 
 .itin-images {
-  height: 190px;
+  height: 180px;
+  width: 100%;
+  opacity: 0.8;
   position: relative;
-  background: $light-gray;
+  background-size: cover;
+  background-position: center;
   display: flex;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   margin-top: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  color: white;
+  background-color: $link;
 
   .name {
     position: absolute;
-    font-size: 14px;
-    top: 5px;
-    left: 5px;
+    font-size: 22px;
+    font-weight: bold;
+    top: 50px;
     text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+
   }
 
   .created {
-    font-size: 13px;
-    color: $med-gray;
+    font-size: 14px;
     position: absolute;
-    top: 23px;
-    left: 5px;
+    top: 150px;
     text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   }
 }
 
-.itin-images img {
-  width: 300px;
-  height: 130px;
-  margin: 50px 0px 10px 0px;
-  border-radius: 2px;
+.itin-images a {
+  color: white;
 }
 
-.itin-title {
+.itin-images:hover {
+  opacity: 1;
+}
 
+.itin-images img {
+  object-fit: cover;
+  width: 100%;
+  border-radius: 5px;
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));
 }
