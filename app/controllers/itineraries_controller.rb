@@ -65,13 +65,14 @@ class ItinerariesController < ApplicationController
 
   def create
     @itinerary = Itinerary.new(itinerary_params)
+    category_params
     @itinerary.user = current_user
     @itinerary.name = "#{@itinerary.location} - #{@itinerary.user.categories.map {|cat| cat.name}.join(", ")}"
-    category_params
     authorize @itinerary
 
     if @itinerary.save
       flash[:success] = "Your itinerary parameters have been saved!"
+      @itinerary.reload # needed to reload the categories that were saved! DO NOT DELETE
       @itin_results = GooglePlacesService.search(@itinerary)
       redirect_to itinerary_path(@itinerary)
     else
@@ -125,9 +126,9 @@ class ItinerariesController < ApplicationController
 
   def category_params
     @user_categories = params[:categories].split(',')
+    current_user.categories.destroy_all
 
     @user_categories.each do |category|
-
       cat = Category.find_by(name: category)
       unless current_user.categories.include?(category)
         UserCategory.create(category: cat, user: current_user)
