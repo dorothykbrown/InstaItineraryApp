@@ -59,14 +59,14 @@ class GooglePlacesService
       'Museums': 1,
       'Attractions': 1
     }
-    created_event = Event.create(
+
+    created_event = Event.new(
       name: event.dig("result", "name"),
       duration: event_duration[category.name.to_sym],
       # description: "", ,
       address: event.dig("result", "formatted_address"),
       latitude: event.dig("result", "geometry", "location", "lat"),
       longitude: event.dig("result", "geometry", "location", "lng"),
-      photo: find_event_photo(event.dig("result", "photos")),
       rating: event.dig("result", "rating"),
       price: event.dig("result", "price_level"), #price level
       website: event.dig("result", "website"),
@@ -74,6 +74,10 @@ class GooglePlacesService
       # week_day_text: event["result"]["opening_hours"]["week_day_text"],
       category_id: cat_id
     )
+
+    created_event.remote_photo_url = find_event_photo(event.dig("result", "photos"))
+    created_event.save
+
     # binding.pry
     Result.create(event: created_event, itinerary: itin)
     if created_event[:id].present?
@@ -84,7 +88,8 @@ class GooglePlacesService
   def self.find_reviews(event, event_id)
     if event.present?
       reviews_array = event.dig("result", "reviews")
-      if reviews_array.size.positive?
+
+      if !reviews_array.nil? && reviews_array.size.positive?
         reviews_array.each do |review|
           new_review = Review.new(
             author: review.dig("author_name"),
