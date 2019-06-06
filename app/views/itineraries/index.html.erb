@@ -1,31 +1,30 @@
 <div class="search-container">
   <div class="itin-show">
     <h4>My Itineraries</h4>
-    <% @itineraries.each do |itinerary| %>
-    <% if itinerary.events.size > 1 %>
-    <div class="itin-images justify-content-center">
-      <% city_name = itinerary.name.split(",").first %>
-      <% categories_name = itinerary.categories.pluck("name").uniq.join(", ") %>
-      <% created = itinerary.created_at %>
+    <%# if itinerary.events.size >= 1 %>
 
-      <span class="name"><%= link_to "#{city_name} → #{categories_name}", itinerary_path(itinerary) %></span>
-      <span class="created"> <%= created.strftime("%F") %></span>
-      <% itinerary.events.take(1).each do |event| %>
-      <%= image_tag(event.photo) if event.photo.present? %>
-      <div class="" style="text-align: center; margin-top: 8px;">
-        <%= link_to itinerary_path(itinerary), method: :delete, data: {
-          confirm: "Are you sure?" } do %>
-          <button class="icon-btn add-btn">
-            <div class="btn-txt">Remove</div>
+      <% @itineraries.each do |itinerary| %>
+        <div class="itin-images justify-content-center">
+          <% city_name = itinerary.name.split(",").first %>
+          <% categories_name = itinerary.categories.pluck("name").uniq.join(", ") %>
+          <% created = itinerary.created_at %>
 
-          </button>
+          <span class="name"><%= link_to "#{city_name} → #{categories_name}", itinerary_path(itinerary) %></span>
+          <span class="created"> <%= created.strftime("%F") %></span>
+          <% itinerary.events.take(1).each do |event| %>
+            <%= image_tag(event.photo) if event.photo.present? %>
+            <div class="" style="text-align: center; margin-top: 8px;">
+              <%= link_to itinerary_path(itinerary), method: :delete, data: {
+                confirm: "Are you sure?" } do %>
+                <button class="icon-btn add-btn">
+                  <div class="btn-txt">Remove</div>
+                </button>
+              <% end %>
+            </div>
+          <% end %>
 
         </div>
-        <% end %>
-        <% end %>
-
-      </div>
       <% end %>
-      <% end %>
-    </div>
+    <%# end %>
   </div>
+</div>
