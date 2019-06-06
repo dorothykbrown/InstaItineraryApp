@@ -1,6 +1,6 @@
 <div class="search-container">
   <div class="event-images m-3">
-    <%= image_tag(@event.photo) if @event.photo.present? %>
+    <%= cl_image_tag(@event.photo) if @event.photo.present? %>
   </div>
   <div class="event-details m-3">
     <h3><%= @event.name %></h3>
