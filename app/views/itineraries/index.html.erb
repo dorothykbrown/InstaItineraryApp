@@ -12,15 +12,15 @@
     <span class="created"> <%= created.strftime("%F") %></span>
 
       <% itinerary.events.take(1).each do |event| %>
-      <%= image_tag(event.photo) if event.photo.present? %>
+      <%= cl_image_tag(event.photo) if event.photo.present? %>
 
     <div class="" style="text-align: center; margin-top: 8px;">
       <%= link_to itinerary_path(itinerary), method: :delete, data: {
          confirm: "Are you sure?" } do %>
-        <button class="icon-btn add-btn">
-          <div class="btn-txt">Remove</div>
-        </button>
     </div>
+<!--       <button class="icon-btn add-btn">
+          <div class="btn-txt">Remove</div>
+        </button> -->
     <% end %>
       <% end %>
 
