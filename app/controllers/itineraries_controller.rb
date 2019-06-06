@@ -13,9 +13,10 @@ class ItinerariesController < ApplicationController
   def show
     authorize @itinerary
 
-    itin_results = GooglePlacesService.generate_itin(@itinerary.id)
+    itin_results = GooglePlacesService.generate_itin(@itinerary)
 
     @itin_events = itin_results.first if itin_results.first.present?
+
     if @itin_events.nil?
       redirect_to root_path, notice: "No results were generated for this search. Please try again."
     else
@@ -71,7 +72,7 @@ class ItinerariesController < ApplicationController
 
     if @itinerary.save
       flash[:success] = "Your itinerary parameters have been saved!"
-      @itin_results = GooglePlacesService.search(@itinerary.id)
+      @itin_results = GooglePlacesService.search(@itinerary)
       redirect_to itinerary_path(@itinerary)
     else
       render :new

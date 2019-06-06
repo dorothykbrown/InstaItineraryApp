@@ -2,9 +2,8 @@ require 'json'
 require 'open-uri'
 
 class GooglePlacesService
-  def self.search(itin_id)
+  def self.search(itinerary)
     # return a list of places from google
-    itinerary = Itinerary.find(itin_id)
     user = itinerary.user
     # binding.pry
 
@@ -28,15 +27,14 @@ class GooglePlacesService
           places["results"].each do |place|
             # place_address = places["candidates"].first["formatted_address"]
             place_id = place["place_id"]
-            self.place_details(place_id, itin_id, category.id)
+            self.place_details(place_id, itinerary, category.id)
           end
         end
       end
     # end
   end
 
-  def self.place_details(place_id, itin_id, cat_id)
-    itinerary = Itinerary.find(itin_id)
+  def self.place_details(place_id, itin, cat_id)
     output = "json"
     params = {
       key: ENV['GOOGLE_API_SERVER_KEY'],
@@ -46,12 +44,11 @@ class GooglePlacesService
     details_url = "https://maps.googleapis.com/maps/api/place/details/#{output}?place_id=#{params[:place_id]}&fields=#{params[:fields]}&key=#{params[:key]}"
     event_serialized = open(URI::encode(details_url)).read
     event = JSON.parse(event_serialized)
-    self.build_event(event, itin_id, cat_id)
+    self.build_event(event, itin, cat_id)
     # binding.pry
   end
 
-  def self.build_event(event, itin_id, cat_id)
-    itinerary = Itinerary.find(itin_id)
+  def self.build_event(event, itin, cat_id)
     category = Category.find(cat_id)
     # estimated duration, in hours, of events based on event category
     event_duration = {
@@ -77,7 +74,8 @@ class GooglePlacesService
       # week_day_text: event["result"]["opening_hours"]["week_day_text"],
       category_id: cat_id
     )
-    Result.create(event: created_event, itinerary: itinerary)
+    # binding.pry
+    Result.create(event: created_event, itinerary: itin)
     if created_event[:id].present?
       GooglePlacesService.find_reviews(event, created_event[:id])
     end
@@ -118,10 +116,10 @@ class GooglePlacesService
     "https://maps.googleapis.com/maps/api/place/photo?photoreference=#{params[:ref]}&sensor=false&maxheight=#{params[:height]}&maxwidth=#{params[:width]}&key=#{params[:key]}"
   end
 
-  def self.generate_itin(itin_id)
-    itinerary = Itinerary.find(itin_id)
+  def self.generate_itin(itinerary)
     itin_time = 0
     itin_event_results = []
+
     if itin_time <= itinerary.available_time
       itinerary.events.each do |event|
         if event.latitude.present? && event.longitude.present?
@@ -130,10 +128,12 @@ class GooglePlacesService
           else
             start = itin_event_results.last
           end
+
           navigation = MapboxNavService.direct_a_to_b(start, event)
           travel_time = (navigation.first["routes"].first["duration"] / 3600.0).round(2) # Returns travel time in hours, rounded to 2 decimal places
           remain_time = itinerary.available_time - itin_time
           tot_event_time = event.duration + travel_time
+
           if event.duration.present? && tot_event_time <= remain_time
             itin_event_results << event
             itin_time += tot_event_time
