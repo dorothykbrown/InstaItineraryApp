@@ -39,7 +39,7 @@ class MapboxNavService
         }
       )
     else
-      flash[:notice] = "No Search Results for these parameters"
+      []
     end
   end
 

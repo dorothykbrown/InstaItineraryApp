@@ -1,11 +1,11 @@
 <div class="container">
   <div
-  id="map"
-  style="width: 100%;height: 400px;clear:both;overflow: auto;display:block;position:relative"
-  data-mapbox-max-zoom="20"
-  data-markers="<%= @markers.to_json %>"
-  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
-  data-mapbox-geometry="<%= @itin_directions.first.dig('routes').first.dig('geometry').to_json %>"
+    id="map"
+    style="width: 100%;height: 400px;clear:both;overflow: auto;display:block;position:relative"
+    data-mapbox-max-zoom="20"
+    data-markers="<%= @markers.to_json %>"
+    data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+    data-mapbox-geometry="<%= @itin_directions.first.dig('routes').first.dig('geometry').to_json %>"
   ></div>
   <div class="search-container">
     <button type="button" class="btn btn-event" data-toggle="modal" data-target="#exampleModalCenter">
@@ -25,14 +25,15 @@
           <div class="modal-body">
             <!-- first["routes"].first["legs"].first["steps"].first["maneuver"]["instruction"] -->
             <!-- aaa.first[:routes].first[:legs][0][:steps][4][:maneuver][:instruction] -->
-            <ol>
-
-              <% @itin_directions.dig(0, "routes", 0, "legs").each do |leg| %>
-              <% leg.dig("steps").each do |step| %>
-              <li><%= step.dig("maneuver", "instruction") %></li>
-              <% end %>
-              <% end %>
-            </ol>
+            <% if !@itin_directions.empty? %>
+              <ol>
+                <% @itin_directions.dig(0, "routes", 0, "legs").each do |leg| %>
+                  <% leg.dig("steps").each do |step| %>
+                    <li><%= step.dig("maneuver", "instruction") %></li>
+                  <% end %>
+                <% end %>
+              </ol>
+            <% end %>
             <p><strong>Total Itinerary Time: <%= @itin_time.to_i %> hrs <%= ((@itin_time - @itin_time.to_i)*60).to_i %> mins</strong></p>
             <div class="modal-footer">
               <button type="button" class="btn btn-event" data-dismiss="modal">Close</button>
@@ -43,18 +44,18 @@
     </div>
     <div class="cards-show">
       <% @itin_events.each do |event| %>
-      <div class="card-event">
-        <div class="card-event-image">
-          <%= image_tag(event.photo) if event.photo.present? %>
-          <div class="card-event-infos">
+        <div class="card-event">
+          <div class="card-event-image">
+            <%= image_tag(event.photo) if event.photo.present? %>
+            <div class="card-event-infos">
 
-            <h3><strong><%= link_to event.name, itinerary_event_path(@itinerary, event) %></strong></h3>
-            <p><%= '⭐️' * event.rating.to_i %></p>
-            <p><em><%= event.duration.to_i %> hr</em></p>
-            <p><%= event.address %></p>
+              <h3><strong><%= link_to event.name, itinerary_event_path(@itinerary, event) %></strong></h3>
+              <p><%= '⭐️' * event.rating.to_i %></p>
+              <p><em><%= event.duration.to_i %> hr</em></p>
+              <p><%= event.address %></p>
+            </div>
           </div>
         </div>
-      </div>
       <% end %>
     </div>
   </div>
