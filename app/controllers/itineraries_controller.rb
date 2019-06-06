@@ -14,26 +14,31 @@ class ItinerariesController < ApplicationController
     authorize @itinerary
 
     itin_results = GooglePlacesService.generate_itin(@itinerary.id)
-    @itin_events = itin_results.first
-    @itin_time = itin_results.last
 
-    @itin_directions = MapboxNavService.direct(@itin_events)
+    @itin_events = itin_results.first if itin_results.first.present?
+    if @itin_events.nil?
+      redirect_to root_path, notice: "No results were generated for this search. Please try again."
+    else
 
+      @itin_time = itin_results.last
+
+      @itin_directions = MapboxNavService.direct(@itin_events)
 
     # binding.pry
 
-    @markers = @itin_events.select { |mark| mark.longitude && mark.latitude }
+      @markers = @itin_events.select { |mark| mark.longitude && mark.latitude }
 
-    @markers.map!.with_index do |event, index|
-      {
-        lat: event.latitude,
-        lng: event.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: {
-          property: event,
-          index: index,
-          last: index == @markers.length - 1
-        })
-      }
+      @markers.map!.with_index do |event, index|
+        {
+          lat: event.latitude,
+          lng: event.longitude,
+          infoWindow: render_to_string(partial: "info_window", locals: {
+            property: event,
+            index: index,
+            last: index == @markers.length - 1
+          })
+        }
+      end
     end
   end
 
