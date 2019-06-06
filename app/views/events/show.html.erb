@@ -8,10 +8,10 @@
     <%= @event.address %>
     <p><%= link_to 'Visit Website', @event.website, target: :_blank  if @event.website.present? %></p>
     <p><em>Suggested duration:</em> <%= @event.duration.to_i %> hr</p>
-    <h4><%= '💸' * @event.price.to_i if @event.price.present? %></h4>
-    <h5>Reviews</h5>
-    <div class="review">
+    <h4><%= '$' * @event.price.to_i if @event.price.present? %></h4>
       <% if @event.reviews.size > 0 %>
+        <h5>Reviews</h5>
+        <div class="review">
         <% @event.reviews.each do |review| %>
           <p>
             <h6><strong><%= review.author %></strong></h6>
