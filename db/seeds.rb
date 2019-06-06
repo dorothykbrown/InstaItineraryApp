@@ -86,7 +86,7 @@ itineraries = [
   {
     location: 'Belem, Portugal',
     search_radius: 5, # km
-    available_time: 4, # hours
+    available_time: 5, # hours
     name: 'Belem Itinerary',
     transit_mode: 'walk'
   },

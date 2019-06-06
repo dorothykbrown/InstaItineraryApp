@@ -1,14 +1,14 @@
 .mapboxgl-popup {
  width: 250px;
- opacity: .7;
 }
 
 .mapboxgl-popup-content {
+  background-color: rgba(255,255,255,0.8) !important;
   text-align: center;
-  color: $red;
+  color: black;
   font-family: 'Noto Sans HK', sans-serif;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  line-height: 110%;
+  line-height: 100%;
 
   .start-end-font {
     color: $red;
