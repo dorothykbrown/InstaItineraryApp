@@ -13,6 +13,8 @@ class ItinerariesController < ApplicationController
   def show
     authorize @itinerary
 
+    # TODO this should be done in the create
+    # try to save the result of the following service in the DB
     itin_results = GooglePlacesService.generate_itin(@itinerary)
 
     @itin_events = itin_results.first if itin_results.first.present?
@@ -61,10 +63,12 @@ class ItinerariesController < ApplicationController
       @search_error = true
       render '/pages/home'
     end
+    # TODO define the user categories here since these are in the params and remove it from the create action
   end
 
   def create
     @itinerary = Itinerary.new(itinerary_params)
+    # TODO change the name the category_params method, it can be build_user_categories
     category_params
     @itinerary.user = current_user
     @itinerary.name = "#{@itinerary.location} - #{@itinerary.user.categories.map {|cat| cat.name}.join(", ")}"

@@ -4,12 +4,14 @@ require 'open-uri'
 class GooglePlacesService
   def self.search(itinerary)
     # return a list of places from google
+    #  only define variables if used more than once
     user = itinerary.user
     # binding.pry
 
     # if user.categories == []
     #   # raise Exception.new("Please select a category")
     # else
+      # TODO check if google places api can receive multiple categories in the input params
       user.categories.each do |category|
         params = { key: ENV['GOOGLE_API_SERVER_KEY'],
           input: category.name, # name, address or phone number,
@@ -26,6 +28,10 @@ class GooglePlacesService
           places["results"].each do |place|
             # place_address = places["candidates"].first["formatted_address"]
             place_id = place["place_id"]
+            # TODO use background jobs to run each api call
+            # if use background jobs only pass ids
+            # NameOfJob().perform_later
+            # inside of it:  GooglePlacesService.place_details(place_id, itinerary, category.id)
             self.place_details(place_id, itinerary, category.id)
           end
         end
@@ -78,12 +84,14 @@ class GooglePlacesService
     created_event.save
 
     # binding.pry
-    Result.create(event: created_event, itinerary: itin)
-    if created_event[:id].present?
+    # TODO change the model name of Result to ItineraryEvent
+    Result.create(event: created_event, itinerary: itin) # TODO add this line inside the if
+    if created_event[:id].present? # TODO created_event.save here
       GooglePlacesService.find_reviews(event, created_event[:id])
     end
   end
 
+  # TODO change event param name to event_google
   def self.find_reviews(event, event_id)
     if event.present?
       reviews_array = event.dig("result", "reviews")
@@ -96,7 +104,7 @@ class GooglePlacesService
             rating: review.dig("rating"),
             date: review.dig("relative_time_description")
           )
-          new_review.event = Event.find(event_id)
+          new_review.event = Event.find(event_id) # TODO use new_review.event_id = event_id
           new_review.save
         end
       end
@@ -104,7 +112,7 @@ class GooglePlacesService
   end
 
   def self.find_event_photo(photos)
-    return nil if photos.nil?
+    return nil if photos.nil? # ||  photos.empty?
 
     return nil if photos.empty?
 
@@ -124,6 +132,9 @@ class GooglePlacesService
     itin_time = 0
     itin_event_results = []
     if itin_time <= itinerary.available_time
+      # TODO order events by random or by durantion
+      # itinerary.events.order("RANDOM()")
+      # itinerary.events.order(:duration)
       itinerary.events.each do |event|
         if event.latitude.present? && event.longitude.present?
           if event == itinerary.events.first

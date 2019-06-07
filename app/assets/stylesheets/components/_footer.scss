@@ -8,6 +8,12 @@
   color: rgba(0,0,0,0.3);
   width: 100%;
   overflow: hidden;
+  text-align: center;
+  font-size: 14px;
+  margin: 0 auto;
+  p {
+    margin: 0 auto;
+  }
 }
 
 .img-group {
@@ -18,7 +24,7 @@
  margin-top: 10px;
  font-size: 14px;
  overflow: hidden;
- text-align: right;
+ text-align: center;
 }
 
 .hovereffect {
