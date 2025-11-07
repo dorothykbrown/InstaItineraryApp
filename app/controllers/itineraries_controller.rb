@@ -68,8 +68,7 @@ class ItinerariesController < ApplicationController
 
   def create
     @itinerary = Itinerary.new(itinerary_params)
-    # TODO change the name the category_params method, it can be build_user_categories
-    category_params
+    build_user_categories
     @itinerary.user = current_user
     @itinerary.name = "#{@itinerary.location} - #{@itinerary.user.categories.map {|cat| cat.name}.join(", ")}"
     authorize @itinerary
@@ -128,7 +127,7 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.find(params[:id])
   end
 
-  def category_params
+  def build_user_categories
     @user_categories = params[:categories].split(',')
     current_user.categories.destroy_all
 

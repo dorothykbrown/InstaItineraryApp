@@ -81,20 +81,17 @@ class GooglePlacesService
     )
 
     created_event.remote_photo_url = find_event_photo(event.dig("result", "photos"))
-    created_event.save
 
-    # binding.pry
-    # TODO change the model name of Result to ItineraryEvent
-    Result.create(event: created_event, itinerary: itin) # TODO add this line inside the if
-    if created_event[:id].present? # TODO created_event.save here
-      GooglePlacesService.find_reviews(event, created_event[:id])
+    if created_event.save
+      # TODO change the model name of Result to ItineraryEvent
+      Result.create(event: created_event, itinerary: itin)
+      GooglePlacesService.find_reviews(event, created_event.id)
     end
   end
 
-  # TODO change event param name to event_google
-  def self.find_reviews(event, event_id)
-    if event.present?
-      reviews_array = event.dig("result", "reviews")
+  def self.find_reviews(event_google, event_id)
+    if event_google.present?
+      reviews_array = event_google.dig("result", "reviews")
 
       if !reviews_array.nil? && reviews_array.size.positive?
         reviews_array.each do |review|
@@ -104,7 +101,7 @@ class GooglePlacesService
             rating: review.dig("rating"),
             date: review.dig("relative_time_description")
           )
-          new_review.event = Event.find(event_id) # TODO use new_review.event_id = event_id
+          new_review.event_id = event_id
           new_review.save
         end
       end
@@ -132,10 +129,7 @@ class GooglePlacesService
     itin_time = 0
     itin_event_results = []
     if itin_time <= itinerary.available_time
-      # TODO order events by random or by durantion
-      # itinerary.events.order("RANDOM()")
-      # itinerary.events.order(:duration)
-      itinerary.events.each do |event|
+      itinerary.events.order("RANDOM()").each do |event|
         if event.latitude.present? && event.longitude.present?
           if event == itinerary.events.first
             start = itinerary
